@@ -18,7 +18,7 @@ For this deliverable I did the following. I checked the box `[x]` and added a de
 - [X] Proper use of Markdown
 - [X] A concise and compelling elevator pitch
 - [X] Description of key features
-- [ ] Description of how you will use each technology
+- [X] Description of how you will use each technology
 - [ ] One or more rough sketches of your application. Images must be embedded in this file using Markdown image references.
 
 ### Elevator pitch
@@ -52,16 +52,24 @@ sequenceDiagram
 
 I am going to use the required technologies in the following ways.
 
-- **HTML** - Website structure.
+- **HTML** - Basic structure and site scaffolding.
 - **CSS** - Making the website look pretty and professional.
 - **React** - Interactivity with the button.
-- **Service** - 
-- **DB/Login** - Track whether a user has pressed the button (and is thus banned from the site) or not.
+- **Service**:
+    - Support for login, logout, and registering users.
+    - Server endpoints: 
+        - How long they have been resisting the button's temptation (i.e. how long since they first logged in), 
+        - whether or not a user has pressed the button,
+        - when the user pressed the button (if they have), and
+        - how long the user lasted before pressing the button (if they've pressed it).
+    - Calls to [kanye.rest](https://kanye.rest/)'s API to provide banned users with inspirational quotes from Kanye West&mdash;who philosophers unaminously agree is the wisest man on Earth<sup>2</sup>.
+- **DB/Login** - Save login info, and track whether a user has pressed the button (and is thus banned from the site) or not.
 - **WebSocket** - Updating users when other people have pressed the button. (Mob mentality adds extra temptation...)
 
 ### Sources
 
-1. I made that up. Gandhi never said that or anything similar. Did it sound wise enough for me to fool you? 
+1. I made that up. Gandhi never said that or anything similar. Did I fool you?
+2. Philosophers do not believe this.
 
 <!-- ## 🚀 AWS deliverable
 
