@@ -1,5 +1,10 @@
 # Please don't touch
 
+One button. One instruction. But temptation is strong...
+
+The paradox with freewill is that it is not free&mdash;it comes with responsibility. Those who exercise their freewill with ill intent don't deserve to have it. 
+<!-- ; This idea is supported by the enforcement of law by our justice systems. -->
+
 <!-- [My Notes](notes.md) -->
 
 <!-- > [!NOTE]
@@ -23,11 +28,7 @@ For this deliverable I did the following. I checked the box `[x]` and added a de
 
 ### Elevator pitch
 
-One button. One instruction. But temptation is strong...
-
-The paradox with freewill is that it is not free&mdash;it comes with responsibility. Those who exercise their freewill with ill intent don't deserve to have it; this idea is supported by the enforcement of law by our justice systems. 
-
-Following that philosophy, *Please Don't Touch* presents users with a single button along with explicit instructions: "Don't press me." A user proves they can uphold the responsibility of such a choice by not choosing it; users who press the button demonstrate they are not deserving of that responsibility, and they are thus banned from the site. 
+*Please Don't Touch* presents users with a single button along with explicit instructions: "Don't press me." A user proves they can uphold the responsibility of such a choice by choosing not to do it. Users who press the button demonstrate they are not deserving of that responsibility, and they are thus banned from the site. 
 
 Gandhi once said that "the simplest tests reveal the most about one's true character."<sup>1</sup> This single button test, being the simplest possible, thus reveals the truest aspects of one's character.
 
