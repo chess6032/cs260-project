@@ -30,9 +30,7 @@ For this deliverable I did the following. I checked the box `[x]` and added a de
 
 ### Elevator pitch
 
-*Please Don't Touch* presents users with a single button along with explicit instructions: "Don't press me." A user proves they can uphold the responsibility of such a choice by choosing not to do it. Users who press the button demonstrate they are not deserving of that responsibility, and they are thus banned from the site. 
-
-Gandhi once said that "the simplest tests reveal the most about one's true character."<sup>1</sup> This single button test, being the simplest possible, thus reveals the truest aspects of one's character.
+*Please Don't Touch* presents users with a single button along with explicit instructions: "Don't press me." A user proves they can uphold the responsibility of such a choice by choosing not to do it. Users who press the button demonstrate they are not deserving of that responsibility, and they are thus banned from the site. It was Gandhi who once said that "the simplest tests reveal the most about one's true character."<sup>1</sup> This single button test, being the simplest possible, thus reveals the truest aspects of one's character.
 
 ### Design
 
@@ -66,7 +64,7 @@ I am going to use the required technologies in the following ways.
 
 ### Sources
 
-1. I made that up. Gandhi never said that or anything similar. Did I fool you?
+1. Gandhi never said that&mdash;nor did anyone else that I know of. Did I fool you?
 2. Philosophers do not believe this.
 
 <!-- ## 🚀 AWS deliverable
