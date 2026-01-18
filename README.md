@@ -55,11 +55,11 @@ I am going to use the required technologies in the following ways.
 1. Gandhi never said that&mdash;nor did anyone else that I know of. Did I fool you?
 2. Philosophers do not believe this.
 
-<!-- ## 🚀 AWS deliverable
+## 🚀 AWS deliverable
 
 For this deliverable I did the following. I checked the box `[x]` and added a description for things I completed.
 
-- [ ] **Server deployed and accessible with custom domain name** - [My server link](https://yourdomainnamehere.click). -->
+- [X] **Server deployed and accessible with custom domain name** - [My server link](https://youmustnot.click).
 
 <!-- ## 🚀 HTML deliverable
 
