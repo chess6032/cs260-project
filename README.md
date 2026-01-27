@@ -61,19 +61,19 @@ For this deliverable I did the following. I checked the box `[x]` and added a de
 
 - [X] **Server deployed and accessible with custom domain name** - [My server link](https://youmustnot.click).
 
-<!-- ## 🚀 HTML deliverable
+## 🚀 HTML deliverable
 
 For this deliverable I did the following. I checked the box `[x]` and added a description for things I completed.
 
-- [ ] **HTML pages** - I did not complete this part of the deliverable.
-- [ ] **Proper HTML element usage** - I did not complete this part of the deliverable.
-- [ ] **Links** - I did not complete this part of the deliverable.
-- [ ] **Text** - I did not complete this part of the deliverable.
-- [ ] **3rd party API placeholder** - I did not complete this part of the deliverable.
-- [ ] **Images** - I did not complete this part of the deliverable.
-- [ ] **Login placeholder** - I did not complete this part of the deliverable.
-- [ ] **DB data placeholder** - I did not complete this part of the deliverable.
-- [ ] **WebSocket placeholder** - I did not complete this part of the deliverable. -->
+- [ ] **HTML pages** - 
+- [ ] **Proper HTML element usage** - 
+- [ ] **Links** - 
+- [ ] **Text** - 
+- [ ] **3rd party API placeholder** - 
+- [ ] **Images** - 
+- [ ] **Login placeholder** - 
+- [ ] **DB data placeholder** - 
+- [ ] **WebSocket placeholder** - 
 
 <!-- ## 🚀 CSS deliverable
 
