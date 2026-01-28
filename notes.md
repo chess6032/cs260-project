@@ -24,7 +24,22 @@ I registered the domain name `youmustnot.click` for Route 53. I had some trouble
 
 ## Caddy
 
+## Deploying
+
+Look, Mom! I deployed Simon and my startup!! You can see them at `
+
+The deploy script usage is like this:
+
+```sh
+./deployFiles.sh -k your-pem-key -h host-name -s subdomain
+```
+
+Note that `./deployFiles.sh` will take EVERYTHING in the directory it's currently in, so be careful where you run it.
+
+Also WSL doesn't like smth about my key? But you need a POSIX-compliant terminal to run `deployFiles.sh`. Warp didn't work for me, but GitBash did.
+
 ## HTML
+
 
 ## CSS
 
