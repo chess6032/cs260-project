@@ -75,7 +75,7 @@ For this deliverable I did the following. I checked the box `[x]` and added a de
 - [X] **Login placeholder**: `login.html` has a placeholder form element for logging in/registering.
 - [ ] **DB data placeholder**: Banned users will be redirected to `banned.html` after logging in on `login.html`. Non-banned users will be redirected to `button.html`. This will take a database call.
   - TODO: Is that sufficient for DB?
-- [ ] **WebSocket placeholder**: `button.html` has an area illustrating how notifications that will show when other users press the button.
+- [X] **WebSocket placeholder**: `button.html` has an area illustrating how notifications that will show when other users press the button.
 
 <!-- ## 🚀 CSS deliverable
 
