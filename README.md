@@ -65,15 +65,17 @@ For this deliverable I did the following. I checked the box `[x]` and added a de
 
 For this deliverable I did the following. I checked the box `[x]` and added a description for things I completed.
 
-- [ ] **HTML pages** - 
-- [ ] **Proper HTML element usage** - 
-- [ ] **Links** - 
-- [ ] **Text** - 
-- [ ] **3rd party API placeholder** - 
-- [ ] **Images** - 
-- [ ] **Login placeholder** - 
-- [ ] **DB data placeholder** - 
-- [ ] **WebSocket placeholder** - 
+- [X] **HTML pages**: I have three pages: `index.html` is the landing page where the user logins/registers; `button.html` houses the button (which the user MUST not press); and `banned.html` is where maldoers who press the button are sent.
+- [ ] **Proper HTML element usage**: I learned about many different HTML elements and implemented them wisely and correctly. These include header, footer, main, body, style, img, a, input, button, div, form, and others.
+  - TODO: check this one off last.
+- [X] **Links**: I have a navigation menu at the top of each page with links to the other pages.
+- [ ] **Text**: `banned.html` has some text chastizing users who pressed the button.
+- [ ] **3rd party API placeholder**: `banned.html` has a place to grab Kanye West quotes w/ the [Kanye.rest](https://kanye.rest/) API. (In the future I'll have to make sure it filters out inappropriate quotes.)
+- [ ] **Images** - `banned.html` has a [picture of Kanye West](https://commons.wikimedia.org/wiki/File:Kanye_West_at_the_2009_Tribeca_Film_Festival_(crop_2).jpg). (I'm pretty sure this picture is in the public domain... but then again I'm no lawyer.)
+- [ ] **Login placeholder**: `index.html` has a placeholder form element for logging in/registering.
+- [ ] **DB data placeholder**: Banned users will be redirected to `banned.html` after logging in on `index.html`. Non-banned users will be redirected to `button.html`. This will take a database call.
+  - TODO: Is that sufficient for DB?
+- [ ] **WebSocket placeholder**: `button.html` has an area illustrating how notifications that will show when other users press the button.
 
 <!-- ## 🚀 CSS deliverable
 
