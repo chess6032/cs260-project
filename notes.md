@@ -56,8 +56,8 @@ More notes available on my [w26notes repo](https://github.com/chess6032/w26notes
 - `color` sets the text color within an element.
 - `display` defines how to display the element and its children...?
 - `font` (value: `family size style`) defines text font, size, & style (bold, italic, etc.).
-- `margin` (value: `top right bottom left`) adds spacing between the element's contents and its edges.
-- `padding` (value: `top right bottom left`) adds spacing between an element's edges and elements around it.
+- `margin` (value: `top right bottom left`) adds spacing between an element's edges and elements around it.
+- `padding` (value: `top right bottom left`) adds spacing between the element's contents and its edges.
 
 For the `margin` and `padding` shorthands, use **TRBL** ("TRouBLe") mnemonic to remember the sequence of the four values you assign. (Or you can remember it's ordered clockwise starting at the top, if you're lame.)
 
@@ -101,6 +101,8 @@ Relative units:
 | Pseudo-elements    | `::`           | For styling specific parts of an element. |  
 | Attributes         | `[]`           | For styling elements w/ a given attribute, or matching a specified value for a given attribute. |
 
+- You can assign multiple selectors to a single rule via a comma-separated list (`sel1, sel2, sel3 {}`).
+
 #### Precedence
 
 - Specificity (descending): ID > Class/Attribute/Pseudo-class > Element/Psuedo-element > Universal selector. 
@@ -111,13 +113,12 @@ Relative units:
 
 ### Combinators
 
-| Symbol              | Type                    | Demonstration |  
+| Symbol              | Usage                   | Demonstration |  
 | ------              | ----                    | ------------- |  
-| `,`                 | List                    | `el1, el2, el3` |  
 | <code>&nbsp;</code> | All descendants         | `element descendant` |  
 | `>`                 | Direct children         | `parent > child` |  
 | `+`                 | Next sibling only       | `sibling + next-sibling` |  
-| `~`                 | All subsequent siblings | `sibling ~ subsequent-siblings` |  
+| `~`                 | All subsequent siblings | `sibling ~ subsequent-sibling` |  
 
 ### Attribute selectors
 
