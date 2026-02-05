@@ -91,14 +91,15 @@ Relative units:
 
 ### Selectors
 
-- Elements (just the element name)
-- ID (`#`)
-- Class (`.`)
-- Universal selector (`*`)
-  - Don't use if you import libraries into your CSS.
-- Pseudo-classes (`:`) for state-based selection.
-- Pseudo-elements (`::`) for styling specific parts of an element.
-- Attributes (`[]`) for styling elements w/ a given attribute, or a given attribute w/ a specific value.
+| Type               | Symbol         | Notes |  
+| ----               | ------         | ----- |  
+| Elements           | (element name) | |  
+| ID                 | `#`            | |  
+| Class              | `.`            | |  
+| Universal selector | `*`            | Don't use if you import libraries into your CSS. |  
+| Pseudo-classes     | `:`            | For state-based selection. |  
+| Pseudo-elements    | `::`           | For styling specific parts of an element. |  
+| Attributes         | `[]`           | For styling elements w/ a given attribute, or matching a specified value for a given attribute. |
 
 #### Precedence
 
@@ -110,21 +111,25 @@ Relative units:
 
 ### Combinators
 
-- `,` : List (`el1, el2, el3`).
-- <code>&nbsp;</code> : All descendants (`element descendant`).
-- `>` : Direct children (`parent > child`).
-- `+` : Next sibling (`sibling + next-sibling`).
-- `~` : Subsequent sibling (`sibling ~ subsequent-siblings`).
+| Symbol              | Type                    | Demonstration |  
+| ------              | ----                    | ------------- |  
+| `,`                 | List                    | `el1, el2, el3` |  
+| <code>&nbsp;</code> | All descendants         | `element descendant` |  
+| `>`                 | Direct children         | `parent > child` |  
+| `+`                 | Next sibling only       | `sibling + next-sibling` |  
+| `~`                 | All subsequent siblings | `sibling ~ subsequent-siblings` |  
 
 ### Attribute selectors
 
-- (no value) any element that has that attribute.
-- `=` : exact value match.
-- `~=` : space-separated list (`"some stuff value other stuff"`).
-- `|=` : starts w/ value and immediately followed by hyphen (`"value-someotherstuff"`).
-- `^=` : starts w/ value.
-- `$=` : ends w/ value.
-- `*=` : contains value.
+| Symbol               | Usage |  
+| ----------           | ----- |  
+| (no value)           | any element that has that attribute. |  
+| `=`                  | exact value match. |  
+| `~=`                 | space-separated list (`"some stuff value other stuff"`). |  
+| <code>&#124;=</code> | starts w/ value and immediately followed by hyphen (`"value-someotherstuff"`). |  
+| `^=`                 | starts w/ value. |  
+| `$=`                 | ends w/ value. |  
+| `*=`                 | contains value. |  
 
 (ALL of the ones that select based on value will selet elements whose attribute's value is exactly the one you list in the CSS...if that makes sense.)
 
