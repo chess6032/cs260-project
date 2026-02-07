@@ -1,7 +1,3 @@
-body {
-    font-family: sans-serif;
-}
-
 .quote {
     font-style: italic;
 }
@@ -9,4 +5,49 @@ body {
 .quotee {
     font-variant: small-caps;
     font-style: italic;
+}
+
+:root {
+    size: 62.5%;
+    padding: 1rem;
+}
+
+nav.ckh-nav-bar {
+    display: inline-flex;
+    flex-direction: row;
+    align-content: start;
+    align-items: center;
+    column-gap: .5rem;
+    text-align: center;
+}
+
+nav.ckh-nav-bar > #brand {
+    background-color: gold;
+}
+
+nav.ckh-nav-bar > #brand-separator {
+    width: 0;
+    align-self: stretch;
+    border-right: solid 1px black;
+    margin: 0 .5rem 0 .5rem;
+}
+
+.ckh-btn {
+    border: black solid 2px;
+    background-color: aqua;
+    border-radius: 10px;
+    padding: 5px;
+}
+
+
+@media (max-width: 768px) {
+    nav.ckh-nav-bar {
+        flex-direction: column;
+        row-gap: .25rem;
+        align-items: stretch;
+    }
+
+    nav.ckh-nav-bar > #brand-separator {
+        display: none;
+    }
 }
