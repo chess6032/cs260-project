@@ -1,3 +1,9 @@
+:root {
+    size: 62.5%;
+    font-size: 1.2em;
+    padding: 1rem;
+}
+
 .quote {
     font-style: italic;
 }
@@ -7,9 +13,20 @@
     font-style: italic;
 }
 
-:root {
-    size: 62.5%;
-    padding: 1rem;
+footer {
+    position: fixed;
+    left: 0;
+    bottom: 0;
+    width: 100%;
+    background-color: gold;
+    padding: .5rem;
+
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+}
+
+footer > #repo-link {
+    text-align: right;
 }
 
 nav.ckh-nav-bar {
@@ -25,11 +42,15 @@ nav.ckh-nav-bar > #brand {
     background-color: gold;
 }
 
-nav.ckh-nav-bar > #brand-separator {
+.ckh-vert-separator {
     width: 0;
-    align-self: stretch;
-    border-right: solid 1px black;
+    display: inline;
+    border-left: solid 1px black;
     margin: 0 .5rem 0 .5rem;
+}
+
+nav.ckh-nav-bar > .ckh-vert-separator {
+    align-self: stretch;
 }
 
 .ckh-btn {
@@ -47,7 +68,7 @@ nav.ckh-nav-bar > #brand-separator {
         align-items: stretch;
     }
 
-    nav.ckh-nav-bar > #brand-separator {
+    nav.ckh-nav-bar > .ckh-vert-separator {
         display: none;
     }
 }
