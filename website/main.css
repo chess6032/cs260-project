@@ -1,17 +1,13 @@
 :root {
-    size: 62.5%;
-    font-size: 1.2em;
+    font-size: 62.5%;
     padding: 1rem;
 }
 
-.quote {
-    font-style: italic;
+body {
+
 }
 
-.quotee {
-    font-variant: small-caps;
-    font-style: italic;
-}
+
 
 footer {
     position: fixed;
