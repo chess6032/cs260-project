@@ -11,7 +11,8 @@ body {
 }
 
 header {
-    padding: 1rem 1rem 0 1rem;
+    padding: 1rem 1rem 1rem 1rem;
+    background-color: rgb(15, 15, 18);
 }
 
 main {
@@ -25,7 +26,7 @@ main {
 }
 
 footer {
-    background-color: gold;
+    background-color: rgb(15, 15, 18);
     padding: .5rem;
 
     display: grid;
@@ -34,6 +35,11 @@ footer {
 
 footer > #repo-link {
     text-align: right;
+    color: darkgrey;
+}
+
+footer > #author-name {
+    color: darkgrey;
 }
 
 nav.ckh-nav-bar {
@@ -45,14 +51,10 @@ nav.ckh-nav-bar {
     text-align: center;
 }
 
-nav.ckh-nav-bar > #brand {
-    background-color: gold;
-}
-
 .ckh-vert-separator {
     width: 0;
     display: inline;
-    border-left: solid 1px black;
+    border-left: solid darkgray;
     margin: 0 .5rem 0 .5rem;
 }
 
@@ -61,10 +63,12 @@ nav.ckh-nav-bar > .ckh-vert-separator {
 }
 
 .ckh-btn {
-    border: black solid 2px;
-    background-color: aqua;
+    border: #222529 solid 1px;
+    background-color:#222529;
     border-radius: 10px;
-    padding: 5px;
+    padding: 10px;
+    text-decoration: none;
+    color: lightgrey;
 }
 
 
