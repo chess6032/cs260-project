@@ -8,6 +8,9 @@
     font-size: 2em;
     display: flex;
     flex-direction: row;
+    max-width: 500px;
+    margin-top: 10rem;
+    text-align: left;
 }
 
 .quote-attribution {
@@ -16,6 +19,17 @@
 }
 
 main {
-    max-width: 500px;
+    /* max-width: 500px;  */
     align-self: center;
+    text-align: center;
+}
+
+h1 {
+    font-size: 4em;
+}
+
+h1 ~ p {
+    font-size: 1.5em;
+    max-width: 1000px;
+    margin-top: 5rem;
 }
