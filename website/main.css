@@ -1,17 +1,30 @@
 :root {
     font-size: 62.5%;
-    padding: 1rem;
+    /* padding: 1rem; */
 }
 
 body {
     font-size: 1.6em;
+    display: flex;
+    flex-direction: column;
+    height: 100vh;
+}
+
+header {
+    padding: 1rem 1rem 0 1rem;
+}
+
+main {
+    flex: 1;
+    overflow: auto;
+    padding: 1rem;
 }
 
 footer {
-    position: fixed;
+    /* position: fixed;
     left: 0;
     bottom: 0;
-    width: 100%;
+    width: 100%; */
     background-color: gold;
     padding: .5rem;
 

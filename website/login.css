@@ -33,9 +33,3 @@ main {
         margin-top: 0;
     }
 }
-
-@media (max-height: 450px) {
-    main {
-        margin-bottom: 100px;
-    }
-}

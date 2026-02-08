@@ -15,30 +15,28 @@
       />
 
     <link rel="stylesheet" href="main.css" />
+    <link rel="stylesheet" href="button.css" />
     <!-- <link rel="stylesheet" href="notif-table.css" /> -->
   </head>
 
-
   <body>
     <header>
-      <h1>Don't press the button</h1>
       <!-- TODO: This nav menu is a placeholder...I don't anticipate I'll have it in the end product... -->
-      <nav>
-        <menu>
-          <li><a href="login.html">Home</a></li>
-          <li><a href="button.html">Button</a> &lt;&lt; You are here</li>
-          <li><a href="banned.html">After pressing the button</a></li>
-        </menu>
+      <nav class="ckh-nav-bar">
+        <span id="brand">Don't press the button</span>
+        <div class="ckh-vert-separator"></div>
+        <a class="ckh-btn" href="login.html">Home</a>
+        <a class="ckh-btn" href="button.html">Button</a>
+        <a class="ckh-btn" href="banned.html">After pressing the button</a>
       </nav>
     </header>
 
     <hr/>
     
-    <main class="container">
+    <main>
       <div>
-        <button>DON'T PRESS ME</button>
+        <button id="the-button">DON'T PRESS ME</button>
       </div>
-      <br/>
       <table>
         <tr><th>Notifications</th></tr>
         <tr><td>JohnDoe42 pressed the button.</td></tr>
@@ -49,11 +47,10 @@
       </table>
     </main>
 
-    <hr/>
-
     <footer>
-      <p id="author-name">Caleb Hessing</p>
-      <a href="https://github.com/chess6032/cs260-project">GitHub</a>
+      <span id="author-name">Caleb Hessing</span>
+      <!-- <div class="ckh-vert-separator"></div> -->
+      <a id="repo-link" href="https://github.com/chess6032/cs260-project">GitHub</a>
     </footer>
   </body>
 </html>
