@@ -1,8 +1,21 @@
-.quote {
+@font-face {
+    font-family: 'fancy';
+    src: url('/website/fonts/Quintessential-Regular.ttf');
+}
+
+.quote-container {
+    font-family: fancy, Georgia, 'Times New Roman', Times, serif;
+    font-size: 2em;
+    display: flex;
+    flex-direction: row;
+}
+
+.quote-attribution {
+    font-variant: small-caps;
     font-style: italic;
 }
 
-.quotee {
-    font-variant: small-caps;
-    font-style: italic;
+main {
+    max-width: 500px;
+    align-self: center;
 }

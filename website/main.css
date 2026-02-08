@@ -18,13 +18,13 @@ main {
     flex: 1;
     overflow: auto;
     padding: 1rem;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    align-self: center;
 }
 
 footer {
-    /* position: fixed;
-    left: 0;
-    bottom: 0;
-    width: 100%; */
     background-color: gold;
     padding: .5rem;
 
