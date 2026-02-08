@@ -42,6 +42,10 @@ footer > #author-name {
     color: darkgrey;
 }
 
+#brand {
+    font-variant: small-caps;
+}
+
 nav.ckh-nav-bar {
     display: inline-flex;
     flex-direction: row;

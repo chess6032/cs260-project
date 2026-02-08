@@ -75,16 +75,16 @@ For this deliverable I did the following. I checked the box `[x]` and added a de
 - [X] **DB data placeholder**: Banned users will be redirected to `banned.html` after logging in on `login.html`. Non-banned users will be redirected to `button.html`. This will take a database call.
 - [X] **WebSocket placeholder**: `button.html` has an area illustrating how notifications that will show when other users press the button.
 
-<!-- ## 🚀 CSS deliverable
+ ## 🚀 CSS deliverable
 
 For this deliverable I did the following. I checked the box `[x]` and added a description for things I completed.
 
-- [ ] **Visually appealing colors and layout. No overflowing elements.** - I did not complete this part of the deliverable.
-- [ ] **Use of a CSS framework** - I did not complete this part of the deliverable.
-- [ ] **All visual elements styled using CSS** - I did not complete this part of the deliverable.
-- [ ] **Responsive to window resizing using flexbox and/or grid display** - I did not complete this part of the deliverable.
-- [ ] **Use of a imported font** - I did not complete this part of the deliverable.
-- [ ] **Use of different types of selectors including element, class, ID, and pseudo selectors** - I did not complete this part of the deliverable. -->
+- [X] **Visually appealing colors and layout. No overflowing elements.**: I based my color scheme off of Bootstrap's default `bg-dark` color. Every page shares the same coherent color scheme. I ensured elements never overlap on top of one another, regardless of window size.
+- [X] **Use of a CSS framework**: While I used Bootstrap on all my web pages, my usage was sparse: Since this is my first experience with using CSS, I opted to do most of the styling manually.
+- [X] **All visual elements styled using CSS**: Every element is either directly styled with a ruleset or inherits styling from its parent.
+- [X] **Responsive to window resizing using flexbox and/or grid display**: With wise application of flexboxes, grids, and media queries, all content of my webpage is always visible, regardless of viewport or text size.
+- [X] **Use of a imported font**: On the banned page (which users will be sent to after pressing the button), I use the [Quintessential](https://fonts.google.com/specimen/Quintessential?categoryFilters=Feeling:%2FExpressive%2FSophisticated) font from Google Fonts to display Kanye's quote with the sophistication he (doesn't) deserve.
+- [X] **Use of different types of selectors including element, class, ID, and pseudo selectors**: I used many types of selectors and combinators: element, class, ID, and pseudo-class selectors; and child and subsequent sibling combinators.
 
 <!-- ## 🚀 React part 1: Routing deliverable
 
