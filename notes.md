@@ -496,6 +496,37 @@ Becomes
 }
 ```
 
+## REACT: USE CLASSES OVER IDs
+
+[!WARNING] **TODO: replace id selection w/ class selection.**
+
+Claude tells me class selection works better w/ how React is designed...which sucks, bc I used a LOT of id selection in my HTML/CSS. Oops.
+
+Here's what Claude told me:
+
+In React, **class selectors are almost always the better choice**. Here's the reasoning:
+
+**Use class selectors (`.my-component`) because:**
+
+- React components are meant to be reusable, and IDs must be unique per page. If you render the same component twice, you'd have duplicate IDs — which is invalid HTML and can cause bugs.
+- Class selectors compose well with CSS Modules, Tailwind, styled-components, and other common React styling patterns.
+- They're more flexible for applying multiple styles to the same element.
+
+**Avoid ID selectors (`#my-component`) in React because:**
+
+- Duplicate IDs break accessibility tools, browser behavior (like anchor links), and querySelector lookups.
+- They fight against the component reusability model that React encourages.
+- Higher specificity makes them harder to override when needed.
+
+**The exception:** IDs are still fine for things that are *genuinely* unique on the page — like a top-level app wrapper, a skip-nav link, or form labels tied to inputs via `htmlFor`. Just don't use them as your primary styling hook.
+
+**In practice**, most React projects lean toward one of these patterns:
+
+- **CSS Modules** — scoped class names auto-generated per file, no collisions
+- **Tailwind** — utility classes directly in JSX
+- **styled-components / Emotion** — CSS-in-JS with auto-scoped classes
+
+All three are class-based under the hood. The general rule of thumb: reach for classes for styling, and reserve IDs for accessibility and DOM reference purposes.
 
 ## React Part 2: Reactivity
 
