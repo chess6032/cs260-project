@@ -86,13 +86,13 @@ For this deliverable I did the following. I checked the box `[x]` and added a de
 - [X] **Use of a imported font**: On the banned page (which users will be sent to after pressing the button), I use the [Quintessential](https://fonts.google.com/specimen/Quintessential?categoryFilters=Feeling:%2FExpressive%2FSophisticated) font from Google Fonts to display Kanye's quote with the sophistication he (doesn't) deserve.
 - [X] **Use of different types of selectors including element, class, ID, and pseudo selectors**: I used many types of selectors and combinators: element, class, ID, and pseudo-class selectors; and child and subsequent sibling combinators.
 
-<!-- ## 🚀 React part 1: Routing deliverable
+## 🚀 React part 1: Routing deliverable
 
 For this deliverable I did the following. I checked the box `[x]` and added a description for things I completed.
 
-- [ ] **Bundled using Vite** - I did not complete this part of the deliverable.
-- [ ] **Components** - I did not complete this part of the deliverable.
-- [ ] **Router** - I did not complete this part of the deliverable. -->
+- [X] **Bundled using Vite** - I used Vite as a Command Line Interface for building and testing my web app.
+- [X] **Components** - I have an App component containing the general layout of the page (including the header and footer), and then Login/Button/Banned components containing the content for other pages. 
+- [X] **Router** - In the App component, I added the `react-router-dom` package's Router component so my page can dynamically load content from the Login/Button/Banned components. This gives the appearance of loading a different web page without making server calls.
 
 <!-- ## 🚀 React part 2: Reactivity deliverable
 
