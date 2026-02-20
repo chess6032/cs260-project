@@ -454,6 +454,48 @@ Here's the steps listed in the instructions, if you prefer:
 - Rename the `class` to `className` so that it doesn't conflict with the JavaScript keyword `class`.
 - Move the CSS over to the component directory and use an `import` statement to bring it into the component's `jsx` file.
 
+## REACT: AVOIDING SELECTOR COLLISIONS
+
+Student asked:
+
+*I noticed that whenever I switch pages, it loads the css for that page and then continues applying it even after I switch to a different page. It doesn't cause any problems with Simon because all the pages happen to be compatible with all of the CSS files, but that's not the case with my startup... should it be, or is there a way to make the stylesheet for a page stop applying once you switch to a different page?*
+
+Prof Jenson replied:
+
+https://discord.com/channels/748656649287368704/1025517176720982046/1470402528154746972
+
+*Simon did that intentionally. This is a problem with React as it doesn't do anything natively to manage CSS modules. Without something in your build tool chain, you must manage selector collisions yourself. Basically the easiest thing to do is rename your class names to include the scope they are used in.*
+
+**game.css**
+
+```
+.button {
+}
+```
+
+**scores.css**
+
+```
+.button {
+}
+```
+
+Becomes 
+
+**game.css**
+
+```
+.game_button {
+}
+```
+
+**scores.css**
+
+```
+.scores_button {
+}
+```
+
 
 ## React Part 2: Reactivity
 
