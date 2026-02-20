@@ -327,6 +327,62 @@ For our project, we run `deployReact.sh`, a Bash script, to deploy our web app t
 
 `deployReact.sh` **runs `npm run build`** and then **deploys the resulting `dist/` directory** to your production server.
 
+## React
+
+### Usage w/ NPM & vite
+
+Initialization:
+
+```bash
+$ npm init -y
+$ npm install vite@latest -D
+$ npm install react react-dom
+```
+
+Now you write your react code. You **must** have an `index.html` file&mdash;this is where the site starts.
+
+Running:
+
+```bash
+$ npx vite
+```
+
+`npx` is a variant of `npm` which directly executes a Node package w/o refererncing the package.json file.
+
+## Components
+
+In React/JSX, a component is a **function that returns UI**. The return format for these functions is JSX&mdash;a mixture of JS & HTML.
+
+Components may reference other components (styling).
+
+### Styling
+
+- Inline: Just like normal.
+- External: include `import 'path/to/css.ss';` at the top of your code.
+
+To assign elements a class, **use `className` instead of `class`**, since "class" is already a keyword in JS.
+
+### Properties
+
+You can pass information to React components in the form of **HTML element properties**. The component then receives these properties **in it sconstructor**
+
+e.g.:
+
+```jsx
+function Demo(props) { // for <div><Demo who="Your mom!" /></div>
+  return <b>Hello {props.who}</b>;
+}
+// result: Hello Your mom!
+```
+
+### State
+
+Create by calling `React.useState()` => `[currentStateVal, valSetterFunc]`
+
+### Reactivity
+
+- When **properties or state change**, React re-renders component.
+  - Calls `render()` func for that component and all of its dependent comonent's `render()` functions.
 
 ## React Part 2: Reactivity
 
