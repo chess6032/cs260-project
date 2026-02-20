@@ -379,6 +379,28 @@ function Demo(props) { // for <div><Demo who="Your mom!" /></div>
 
 Create by calling `React.useState()` => `[currentStateVal, valSetterFunc]`
 
+## Routing
+
+Routing is the process of using JS to modify a webpage at runtime to give the appearance of loading different pages.
+
+We use [`react-router-dom`](https://www.npmjs.com/package/react-router-dom) (NOT `react-router`) for routing:
+
+```bash
+$ npm install react-router-dom
+```
+
+react-router-dom gives us access to these components:
+
+- `BrowserRouter`
+- `Link` & `NavLink`
+- `Route` & `Routes`
+
+Remember to import them at the top of your JSX code:
+
+```jsx
+import { BrowserRouter, Routes, Route, NavLink } from 'react-router-dom';
+```
+
 ### Reactivity
 
 - When **properties or state change**, React re-renders component.
