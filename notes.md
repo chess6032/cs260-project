@@ -250,7 +250,83 @@ A media query takes one or more predicates, each separated by boolean operators.
 
 Check out [this CodePen](https://codepen.io/leesjensen/pen/rNKZOva) (or [this one](https://codepen.io/leesjensen/pen/NWzLGmJ)) to see this in action.
 
-## React Part 1: Routing
+## Toolchain for React project
+
+| Tool | Purpose |  
+| ---- | ------- |  
+| [Github](https://github.com/) | Code repo. |  
+| [Vite](https://vitejs.dev/) | JSX, TS, dev & debugging support. |  
+| [ESBuild](https://esbuild.github.io/) (w/ [Babel](https://babeljs.io/docs/en/) underneath) | Converting to ES6 modules & transpiling. |  
+| [Rollup](https://rollupjs.org/) | Bundling & tree shaking. |  
+| [PostCSS](https://github.com/webprogramming260/webprogramming/blob/main/instruction/webFrameworks/react/toolChains) | CSS transpiling. |  
+| Bash script (`deployReact.sh`) | Deployment. |  
+
+## JS & NPM 
+
+We use Node.js to deploy JS outside of a browser. I can run JS in my terminal with the `node` command.
+
+We use Node Package Manager (NPM) for managing packages.
+
+### Importing JS into HTML
+
+- Inline: `<script>js goes here</script>`
+- External: `<script src="path/to/file.js" />`
+
+(There's also "inline attribute handlers"...but I ddn't understand them (oops).)
+
+### Package management w/ NPM
+
+We use NPM to manage packages. This takes three step:
+
+1. Initialize directory to use NPM by running `npm init`. (Or `npm init -y` to automatically say "yes" to the slew of questions it asks you.)
+2. Install package w/ NPM.
+3. Iinclude a `require statement` referencing that package.
+
+#### package.json, package-log.json, and node_modules/
+
+- `package.json`: Project metadata, commands you can run from terminal, and package dependencies.
+- `package-lock.json`: version of each package.
+- `node_modules/`: package source code files.
+  - **MAKE SURE TO `.gitignore` THIS**.
+  - Can be rebuilt from `package-lock.json`.
+    - When you clone your repo to a new location, run `npm install`.
+
+### Debugging in VS Code
+
+- `F10`: Step over.
+- `F11`: Step in.
+- `F5`: Continue from current line.
+- `SHIFT` + `F5`: Stop.
+
+`--watch` command arg for `node`: Node.js automatically reloads when changes are made during debugging. Modify `vs.code/launch.json` and add `"--watch"` to the `"runtimeArgs"` list to have the VS Code debugger run with this option.
+
+
+### Important installation commands for this project
+
+- Vite: `npm install vite@latest -D`
+- React: `npm install react react-dom`
+
+## Vite
+
+Our toolchain has several tools to turn React into a deployable web app (Babel, Rollup, PostCSS, etc.); Vite serves as a **Command-Line Interface (CLI)** that **wraps around those tools**, abstracting them away.
+
+### Usage
+
+In an NPM-initialized directory (`npm init` or `npm init -y`):
+
+- **Import Vite w/ `npm create vite@latest`**: Vite sets up a bunch of scripts in `package.json` you can run.
+  - (Chiefly, it adds `npm run dev` and `npm run build` scripts.)
+- **Debug w/ `npm run dev`**.
+  - This bundles code to a temporary directory that the Vite dbg HTTP server then loads from.
+- **Build a deployable app w/ `npm run build`**.
+  - The resulting production distribution's files are **stored in `dist/`**.
+
+### Usage w/ `deployReact.sh`
+
+For our project, we run `deployReact.sh`, a Bash script, to deploy our web app to our server.
+
+`deployReact.sh` **runs `npm run build`** and then **deploys the resulting `dist/` directory** to your production server.
+
 
 ## React Part 2: Reactivity
 
