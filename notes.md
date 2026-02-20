@@ -448,6 +448,13 @@ Here's the steps listed in the instructions, if you prefer:
 8. Convert HTML to React components  
 9. Replace deployment script  
 
+#### Converting pages to React components
+
+- Copy the `main` element HTML over and put it in the return value of the component. Don't copy the header and footer HTML since they are now represented in `app.jsx`.
+- Rename the `class` to `className` so that it doesn't conflict with the JavaScript keyword `class`.
+- Move the CSS over to the component directory and use an `import` statement to bring it into the component's `jsx` file.
+
+
 ## React Part 2: Reactivity
 
 I hear this part is balls. Wish me luck for when I get to this point.
