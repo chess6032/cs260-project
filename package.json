@@ -1,0 +1,24 @@
+{
+  "name": "cs260-project",
+  "version": "1.0.0",
+  "description": "One button. One instruction. But temptation is strong...",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/chess6032/cs260-project.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "type": "commonjs",
+  "bugs": {
+    "url": "https://github.com/chess6032/cs260-project/issues"
+  },
+  "homepage": "https://github.com/chess6032/cs260-project#readme",
+  "devDependencies": {
+    "vite": "^7.3.1"
+  }
+}
