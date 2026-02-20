@@ -38,6 +38,8 @@ Note that `./deployFiles.sh` will take EVERYTHING in the directory it's currentl
 
 Also WSL doesn't like smth about my key? But you need a POSIX-compliant terminal to run `deployFiles.sh`. Warp didn't work for me, but GitBash did.
 
+[!IMPORTANT] As of React Part 1, **use `./deployReact.sh` instead**, which has identical usage but is rewritten for our React toolchain.
+
 ## HTML
 
 
@@ -447,86 +449,6 @@ Here's the steps listed in the instructions, if you prefer:
 7. Create the router  
 8. Convert HTML to React components  
 9. Replace deployment script  
-
-#### Converting pages to React components
-
-- Copy the `main` element HTML over and put it in the return value of the component. Don't copy the header and footer HTML since they are now represented in `app.jsx`.
-- Rename the `class` to `className` so that it doesn't conflict with the JavaScript keyword `class`.
-- Move the CSS over to the component directory and use an `import` statement to bring it into the component's `jsx` file.
-
-## REACT: AVOIDING SELECTOR COLLISIONS
-
-Student asked:
-
-*I noticed that whenever I switch pages, it loads the css for that page and then continues applying it even after I switch to a different page. It doesn't cause any problems with Simon because all the pages happen to be compatible with all of the CSS files, but that's not the case with my startup... should it be, or is there a way to make the stylesheet for a page stop applying once you switch to a different page?*
-
-Prof Jenson replied:
-
-https://discord.com/channels/748656649287368704/1025517176720982046/1470402528154746972
-
-*Simon did that intentionally. This is a problem with React as it doesn't do anything natively to manage CSS modules. Without something in your build tool chain, you must manage selector collisions yourself. Basically the easiest thing to do is rename your class names to include the scope they are used in.*
-
-**game.css**
-
-```
-.button {
-}
-```
-
-**scores.css**
-
-```
-.button {
-}
-```
-
-Becomes 
-
-**game.css**
-
-```
-.game_button {
-}
-```
-
-**scores.css**
-
-```
-.scores_button {
-}
-```
-
-## REACT: USE CLASSES OVER IDs
-
-[!WARNING] **TODO: replace id selection w/ class selection.**
-
-Claude tells me class selection works better w/ how React is designed...which sucks, bc I used a LOT of id selection in my HTML/CSS. Oops.
-
-Here's what Claude told me:
-
-In React, **class selectors are almost always the better choice**. Here's the reasoning:
-
-**Use class selectors (`.my-component`) because:**
-
-- React components are meant to be reusable, and IDs must be unique per page. If you render the same component twice, you'd have duplicate IDs — which is invalid HTML and can cause bugs.
-- Class selectors compose well with CSS Modules, Tailwind, styled-components, and other common React styling patterns.
-- They're more flexible for applying multiple styles to the same element.
-
-**Avoid ID selectors (`#my-component`) in React because:**
-
-- Duplicate IDs break accessibility tools, browser behavior (like anchor links), and querySelector lookups.
-- They fight against the component reusability model that React encourages.
-- Higher specificity makes them harder to override when needed.
-
-**The exception:** IDs are still fine for things that are *genuinely* unique on the page — like a top-level app wrapper, a skip-nav link, or form labels tied to inputs via `htmlFor`. Just don't use them as your primary styling hook.
-
-**In practice**, most React projects lean toward one of these patterns:
-
-- **CSS Modules** — scoped class names auto-generated per file, no collisions
-- **Tailwind** — utility classes directly in JSX
-- **styled-components / Emotion** — CSS-in-JS with auto-scoped classes
-
-All three are class-based under the hood. The general rule of thumb: reach for classes for styling, and reserve IDs for accessibility and DOM reference purposes.
 
 ## React Part 2: Reactivity
 
