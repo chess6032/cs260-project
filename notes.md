@@ -406,6 +406,48 @@ import { BrowserRouter, Routes, Route, NavLink } from 'react-router-dom';
 - When **properties or state change**, React re-renders component.
   - Calls `render()` func for that component and all of its dependent comonent's `render()` functions.
 
+## Porting
+
+### Vite directory structure
+
+```
+├─ public          # Static assets used in the app
+├─ src             # Frontend React code
+│    ├─ app.jsx    # React app component
+│    └─ app.css    # React app CSS
+│    └─ login    
+│    └─ button
+│    └─ banned
+├─ index.html      # App entry HTML
+└─ index.jsx       # React entry point
+```
+
+### Process
+
+- Install Vite, Bootstrap, and React.
+- Uhhhh do some stuff I forget.
+- Create stubs for each page.
+- Wrap App UI w/ BrowserRouter
+- Replace `<a>` els in nav bar w/ `<NavLink>`.
+- Replace `<main>` on home page w/ `<Routes>`.
+- Add `NotFound` for 404 functionality when `*` is caught.
+- Add page content to page components. (`html` -> `jsx`).
+- Use new deploy script.
+
+#### or this ig
+
+Here's the steps listed in the instructions, if you prefer:
+
+1. Install and configure Vite  
+2. Reorganize the code  
+3. Convert to React Bootstrap  
+4. Enable React  
+5. Create app component  
+6. Create view components  
+7. Create the router  
+8. Convert HTML to React components  
+9. Replace deployment script  
+
 ## React Part 2: Reactivity
 
 I hear this part is balls. Wish me luck for when I get to this point.
