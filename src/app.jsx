@@ -22,7 +22,15 @@ export default function App() {
               <NavLink className="ckh-btn" to="banned">After pressing the button</NavLink>
             </nav>
           </header>
-          <main>Main content here.</main> {/* There MUST be a <main> tag or else <footer> won't be fixed to the bottom of the page. */}
+
+          {/* <main> tag is provided by the components the Router uses */}
+          <Routes>
+            <Route path='/' element={<Login />} exact /> {/* "exact" isn't needed for "/" paths anymore as of React V6...but the instructions had this here so I'll keep it ig*/}
+            <Route path='/button' element={<Button />}/>
+            <Route path='/banned' element={<Banned />}/>
+            <Route path='*' element={<NotFound />}/> {/* catches any other address so that we can give a 404 not found error. */}
+          </Routes>
+
           <footer>
             <span id="author-name">Caleb Hessing</span>
             {/* <div class="ckh-vert-separator"></div> */}
@@ -31,4 +39,8 @@ export default function App() {
         </div>
       </BrowserRouter>
     );
+}
+
+function NotFound() {
+  return <main>404: Not found :(</main>
 }
