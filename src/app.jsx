@@ -5,9 +5,8 @@ import './app.css';
 // ROUTER STUFF
 import { BrowserRouter, NavLink, Route, Routes } from 'react-router-dom';
 import { Login } from './login/login';
-import { Play } from './play/play';
-import { Scores } from './scores/scores';
-import { About } from './about/about';
+import { Button } from './button/button';
+import { Banned } from './banned/banned';
 
 export default function App() {
     return (
