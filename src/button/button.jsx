@@ -4,7 +4,7 @@ import './button.css';
 
 export function Button() {
   return (
-    <main>
+    <main className="button-main">
       <div>
         <button id="the-button">DON'T PRESS ME</button>
       </div>

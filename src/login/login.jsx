@@ -4,7 +4,7 @@ import './login.css';
 
 export function Login() {
   return (
-    <main>
+    <main className="login-main">
       <h1>Come on in.</h1> 
       <h2>But please&mdash;don't press the button.</h2>
       <form id="login-form">
