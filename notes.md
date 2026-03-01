@@ -450,6 +450,108 @@ Here's the steps listed in the instructions, if you prefer:
 8. Convert HTML to React components  
 9. Replace deployment script  
 
+## Advanced JS
+
+### `console.time()` and `console.endTime()`
+
+- `console.time(timerLabel)`: starts a timer referred to w/ `timerLabel`.
+- `console.timeEnd(timerLabel)`: ends the timer.
+
+```js
+console.time('demo time');
+
+// ... some code that takes a long time.
+
+console.timeEnd('demo time');
+// OUTPUT: demo time: 12.74 ms
+```
+
+### Functions
+
+- Functions are defined with the `function` keyword.
+- Functions are **first-class objects**.
+- Functions **cannot be overloaded**.
+  - When multiple functions are defined w/ the same name, the last one defined overwrites previous definitions, like in Python.
+- Functions may be **defined inside other functions**, like in Python.
+  - These are called **"inner functions"**.
+- **Parameters can be given a default value**, like in Python or C++.
+
+#### Closure
+
+- A "closure" is a function that **retains access to variables from the scope it was defined in**. 
+- **All functions in JS form closures**, but arrow functions (see below) are special in what their `this` pointer references.
+  - Regular functions' `this` pointer references **where they're CALLED**.
+  - Arrow functions' `this` pointer references **where they're CREATED**.
+    - In the instructions: "arrow functions inherit the `this` pointer from the scope in which they're created."
+- Closure is clutch for working w/ JS in HTML.
+
+Here's an example of closure w/ arrow functions (see below).
+
+```js
+function makeClosure(init) {
+    let closureValue = init;
+    return () => {
+        return `closure ${++closureValue}`;
+    };
+}
+
+
+const closure = makeClosure(0);
+
+console.log(closure());
+// OUTPUT: closure 1
+
+console.log(closure());
+// OUTPUT: closure 2
+```
+
+### Arrow functions
+
+```js
+() => 67;
+// RETURNS 67
+// ("return" keyword is optional)
+
+() => {
+    67;
+}
+// doesn't return anything.
+// (technically speaking, its return value would be considered UNDEFINED, I think.)
+
+() => {
+    return 67;
+}
+// RETURNS 67
+```
+
+Remember: Arrow functions inherit the `this` pointer from where the scope in which they're created. i.e., **they close over the `this` from their surrounding scope** upon creation. This is what separates them behaviorly from regular functions or non-arrow anonymous functions.
+
+### Arrays
+
+- Arrays in JS are **zero-indexed**.
+- Arrays in JS are **dynamically-sized**. They can grow & shrink.
+- Arrays in JS **can hold elements of different types**.
+- Arrays in JS are concatenated with the `.concat()` function, NOT the `+` operator you'd use in Python. (Sadge.)
+- You **cannot negative index an array** in JS the way you can a list in Python.
+
+| Function | Meaning                                                   | Example                       |
+| -------- | --------------------------------------------------------- | ----------------------------- |
+| push     | Add an item to the end of the array                       | `a.push(4)`                   |
+| pop      | Remove an item from the end of the array                  | `x = a.pop()`                 |
+| sort     | Run a function to sort an array in place                  | `a.sort((a,b) => b-a)`        |
+| slice    | Return a sub-array                                        | `a.slice(1,-1)`               |
+| values   | Creates an iterator for use with a `for of` loop          | `for (i of a.values()) {...}` |
+| find     | Find the first item satisfied by a test function          | `a.find(i => i < 2)`          |
+| forEach  | Run a function on each array item                         | `a.forEach(console.log)`      |
+| reduce   | Run a function to reduce each array item to a single item | `a.reduce((a, c) => a + c)`   |
+| map      | Run a function to map an array to a new array             | `a.map(i => i+i)`             |
+| filter   | Run a function to remove items                            | `a.filter(i => i%2)`          |
+| every    | Run a function to test if all items match                 | `a.every(i => i < 3)`         |
+| some     | Run a function to test if any items match                 | `a.some(i => i < 1)`          |
+
+
+All of these are **non-mutating** EXCEPT `.push()`, `.pop()`, and `.sort()`.
+
 ## React Part 2: Reactivity
 
 I hear this part is balls. Wish me luck for when I get to this point.
