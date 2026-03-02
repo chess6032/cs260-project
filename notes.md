@@ -552,6 +552,93 @@ Remember: Arrow functions inherit the `this` pointer from where the scope in whi
 
 All of these are **non-mutating** EXCEPT `.push()`, `.pop()`, and `.sort()`.
 
+### Objects & classes
+
+OBJECTS:
+
+- Objects are glorified maps/dictionaries.
+  - `.entries()`, `.keys()`, `.values()`.
+- You can declare an object w/o defining a class using a JSON-like syntax called "object-literal syntax".
+- Any function that returns an object is considered a "constructor".
+
+CLASSES:
+
+- You can instantiate objects of a class w/ the `new` keyword.
+- Each class's constructor function is defined w/ the name `constructor`.
+- You can make a member private by prefixing its name w/ `#`.
+- The keyword for inheritance is `extends`.
+  - In the subclass's constructor, use `super()` to invoke the super class's constructor.
+- The root of inheritancy is the `Object` class (except for `null` and maybe some other exceptions idk).
+
+### JSON
+
+- JSON &rightarrow; JS: `JSON.parse()`
+- JS &rightarrow; JSON: `JSON.stringify()`
+- When converting from JS to JSON, `undefined` objects are dropped.
+
+JSON data types:
+
+- string
+- number (int or float)
+- bool
+- array
+- object
+- null
+
+In a JSON document, typically the top-level item is an object in which everything is enclosed.
+
+### Destructuring
+
+ARRAYS:
+
+```js
+const a = [1, 2, 4, 5];
+const [b, c, ...others] = a;
+
+console.log(b, c, others);
+// OUTPUT: 1, 2, [4, 5]
+```
+
+OBJECTS:
+
+```js
+const o = { a: 1, b: 'animals', c: ['fish', 'cats'] };
+
+const { a, c } = o;
+
+console.log(a);
+// OUTPUT: 1
+console.log(c);
+// OUTPUT: ['fish', 'cats']
+```
+
+MAPPING TO NEW VARIABLE NAMES:
+
+```js
+const o = { a: 1, b: 'animals', c: ['fish', 'cats'] };
+
+const { a: count, b: type } = o;
+
+console.log(count);
+// OUTPUT: 1
+console.log(type);
+// OUTPUT: animals
+```
+
+PROVIDING DEFAULT VALUES (used if property is missing):
+
+```js
+const { a, b=22 } = {}; // trying to destructure an empty object
+const [c=44] = []; // trying to destructure an empty array
+
+console.log(a);
+// OUTPUT: undefined
+console.log(b);
+// OUTPUT: 22
+console.log(c);
+// OUTPUT: 
+```
+
 ## React Part 2: Reactivity
 
 I hear this part is balls. Wish me luck for when I get to this point.
