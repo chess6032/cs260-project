@@ -639,6 +639,95 @@ console.log(c);
 // OUTPUT: 
 ```
 
+## React hooks
+
+React hooks allow function-style components to match (and exceed) the functionality of class-style components.
+
+- **Hooks MUST be called at the top scope of component functions.** 
+  - (This restriction ensures hooks are always called in the same order when a comp is rendered.)
+
+### `useState` hook
+
+```js
+const [state, stateSetterFunc] = React.useState(initialVal);
+```
+
+- `state` is the value of a variable of the same name defined internally within React. 
+- `stateSetterFunc` is for setting that variable.
+
+(The initial value is only used on the first render&mdash;subsequent renders ignore it.)
+
+```jsx
+function Clicker({ initialCount }) {
+    const [count, updateCount] = React.useState(initialCount);
+    return <div onClick={() => updateCount(count + 1)}>Click count: {count}</div>;
+}
+
+const root = ReactDOM.createRoot(document.getElementById('root'));
+root.render(<Clicker initialCount={3} />);
+```
+
+### `useEffect` hook
+
+- The `useEffect` hook allows you to **represent lifecycle events**.
+- `React.useEffect()` takes two parameters (that I know of):
+  1. A **function** that is run when the useEffect hook is triggered. If this function returns a function, then that is called when the component "cleans up" (whatever ts means).
+  2. (Optional) An **array of dependencies** that can trigger the useEffect hook. (See below.)
+    - By passing in `[]`, the effect hook is **only triggered the first time** the component is rendered.
+
+#### `useEffect` dependencies
+
+```jsx
+function UseEffectHookDemo() {
+    const [count1, updateCount1] = React.useState(0);
+    const [count2, updateCount2] = React.useState(0);
+
+    React.useEffect(() => {
+        console.log(`count1 effect triggered ${count1}`);
+    }, [count1]); // <-- count1 dependency defined here
+
+    return (
+        <ol>
+          <li onClick={() => updateCount1(count1 + 1)}>Item 1: {count1}</li>
+          <li> onClick={() => updateCount2(count2 + 1)}Item 2: {count2}</li>
+        </ol>
+    );
+}
+
+const root = ReactDOM.createRoot(document.getElementById('root'));
+root.render(<UseEffectHookDemo />);
+```
+
+#### `useEffect` clean up example
+
+```jsx
+function Clicker() {
+  const [count, update] = React.useState(5);
+
+  return (
+    <div onClick={() => update(count - 1)}>
+      Click count: {count}
+      {count > 0 ? <Db /> : <div>DB Connection Closed</div>}
+    </div>
+  );
+}
+
+function Db() {
+  React.useEffect(() => {
+    console.log('connected');
+
+    return function cleanup() { // NOTE: does not have to be called cleanup.
+      console.log('disconnected');
+    };
+  }, []); // <-- useEffect callback triggered only the first time the component is rendered.
+
+  return <div>DB Connection</div>;
+}
+
+const root = ReactDOM.createRoot(document.getElementById('root'));
+root.render(<Clicker />);
+```
+
 ## React Part 2: Reactivity
 
 I hear this part is balls. Wish me luck for when I get to this point.
