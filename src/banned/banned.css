@@ -8,9 +8,10 @@
     font-size: 2em;
     display: flex;
     flex-direction: row;
-    max-width: 500px;
+    max-width: 520px;
     margin-top: 10rem;
     text-align: left;
+    gap: 20px;
 }
 
 .quote-attribution {
