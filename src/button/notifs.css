@@ -1,0 +1,18 @@
+th {
+    border-bottom: 1px solid black;
+    text-align: center;
+}
+
+td {
+    font-style: italic;
+    padding: 2px 1em 2px 1em;
+}
+
+th {
+    color: lightgrey;
+}
+
+table {
+    border-bottom: 1px solid black;
+    color: darkgrey;
+}
