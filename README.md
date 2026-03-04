@@ -94,12 +94,14 @@ For this deliverable I did the following. I checked the box `[x]` and added a de
 - [X] **Components** - I have an App component containing the general layout of the page (including the header and footer), and then Login/Button/Banned components containing the content for other pages. 
 - [X] **Router** - In the App component, I added the `react-router-dom` package's Router component so my page can dynamically load content from the Login/Button/Banned components. This gives the appearance of loading a different web page without making server calls.
 
-<!-- ## 🚀 React part 2: Reactivity deliverable
+## 🚀 React part 2: Reactivity deliverable
 
 For this deliverable I did the following. I checked the box `[x]` and added a description for things I completed.
 
 - [ ] **All functionality implemented or mocked out** - I did not complete this part of the deliverable.
-- [ ] **Hooks** - I did not complete this part of the deliverable. -->
+  - I mocked out WebSocket w/ `useEffect()` and `setInterval()`. (Notification list on the button page.)
+  - I mocked out a 3rd party API call by filling the contents of the quote on the banned page via a function.
+- [ ] **Hooks** - I did not complete this part of the deliverable.
 
 <!-- ## 🚀 Service deliverable
 
