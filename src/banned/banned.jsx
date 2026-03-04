@@ -18,7 +18,7 @@ export function Banned() {
       <p>You have proven that you are NOT a responsible agent of freewill. As such, your freewill has been restricted: you will never have the 
         choice of pressing the button ever again.</p>
       <div className="quote-container">
-        <span className="quote">{quote}<br/><span class="quote-attribution">Kanye West</span></span>  
+        <span className="quote">{quote}<br/><span className="quote-attribution">Kanye West</span></span>  
         <img id="image" src="Kanye_West_at_the_2009_Tribeca_Film_Festival_(crop_2)-DavidShankbone.jpg" height="200" />
       </div>
     </main>
