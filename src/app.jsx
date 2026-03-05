@@ -27,7 +27,7 @@ export default function App() {
                 {/* <NavLink className="ckh-btn" to="banned">After pressing the button</NavLink> */}
               </nav>
               <div style={{textAlign: "right"}}>
-                <Profile />
+                <Profile localUser={localUser} setLocalUser={setLocalUser}/>
               </div>
             </header>
   
