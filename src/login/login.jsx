@@ -9,15 +9,22 @@ export function Login({ setLocalUser }) {
 
   const [text, setText] = React.useState('');
 
-  function userTypesOnKeyboard(e) {
+  function handleUserTyping(e) {
     setText(e.target.value);
     console.log(e.target.value);
   };
+
+  function handleOnKeyDown(e) {
+    if (e.key == "Enter") {
+      loginUser();
+    }
+  }
 
   function loginUser() {
     console.log(`logged in ${text}`);
     localStorage.setItem(LOCAL_USER_KEY, text);
     setLocalUser(text);
+    // TODO: handle navigation
   }
 
   return (
@@ -28,10 +35,10 @@ export function Login({ setLocalUser }) {
 
         <div id="login-input">
           <span>Username</span>
-          <input type="text" placeholder="username" onChange={userTypesOnKeyboard}/>
+          <input type="text" placeholder="username" onChange={handleUserTyping} onKeyDown={handleOnKeyDown}/>
 
           <span>Password:&nbsp;</span>
-          <input type="password" placeholder="password"/>
+          <input type="password" placeholder="password" onKeyDown={handleOnKeyDown}/>
         </div>
 
         <div id="login-buttons">
