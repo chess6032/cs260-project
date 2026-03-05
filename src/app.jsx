@@ -12,24 +12,7 @@ import { useEffect } from 'react';
 import { STATUS_GOOD, STATUS_BANNED, LOCAL_USER_KEY } from "./constants.js";
 
 export default function App() {
-    const [localUser, setLocalUser] = React.useState(null); // represents if the user 
-
-    // FIXME: 
-    // if I pass THIS function down to login.jsx as the Login component's "setLocalUser" function,
-    // it updates local storage but NOT the localUser variable. Meanwhile,
-    // if I pass setLocalUser (from React.useState) to the login component,
-    // it updates the localUser variable but NOT local storage. :(
-    function setCurrUser(username) {
-        // update local user in REACT AND in LOCAL STORAGE
-        console.log(`setting current user to : ${username}`);
-        localStorage.setItem(LOCAL_USER_KEY, JSON.stringify(username));
-        setLocalUser((user) => user);
-    }
-
-    // INITIALIZATION
-    useEffect(() => {
-        setCurrUser(null); // start w/ null local user prior to login
-    });
+    const [localUser, setLocalUser] = React.useState(localStorage.getItem(LOCAL_USER_KEY) || null); // represents if the user 
 
     return (
         <BrowserRouter>
@@ -47,7 +30,7 @@ export default function App() {
   
             {/* <main> tag is provided by the components the Router uses */}
             <Routes>
-              <Route path='/' element={<Login setLocalUser={setCurrUser} />} exact /> {/* "exact" isn't needed for "/" paths anymore as of React V6...but the instructions had this here so I'll keep it ig*/}
+              <Route path='/' element={<Login setLocalUser={setLocalUser} />} exact /> {/* "exact" isn't needed for "/" paths anymore as of React V6...but the instructions had this here so I'll keep it ig*/}
               <Route path='/button' element={<Button />}/>
               <Route path='/banned' element={<Banned />}/>
               <Route path='*' element={<NotFound />}/> {/* catches any other address so that we can give a 404 not found error. */}

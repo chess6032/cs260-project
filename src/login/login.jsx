@@ -2,6 +2,7 @@ import React from 'react';
 import 'bootstrap/dist/css/bootstrap.min.css'; // I don't think this page uses bootstrap but just in case...
 import './login.css';
 import { useNavigate } from 'react-router-dom';
+import { LOCAL_USER_KEY } from '../constants';
 
 export function Login({ setLocalUser }) {
   const navigate = useNavigate();
@@ -15,7 +16,7 @@ export function Login({ setLocalUser }) {
 
   function loginUser() {
     console.log(`logged in ${text}`);
-    // update local user in REACT AND in LOCAL STORAGE
+    localStorage.setItem(LOCAL_USER_KEY, text);
     setLocalUser(text);
   }
 
