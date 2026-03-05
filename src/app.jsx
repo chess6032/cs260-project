@@ -7,7 +7,6 @@ import { BrowserRouter, NavLink, Route, Routes } from 'react-router-dom';
 import { Login } from './login/login';
 import { Button } from './button/button';
 import { Banned } from './banned/banned';
-import { useEffect } from 'react';
 
 import { STATUS_GOOD, STATUS_BANNED, LOCAL_USER_KEY } from "./constants.js";
 

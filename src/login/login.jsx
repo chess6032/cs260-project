@@ -20,11 +20,12 @@ export function Login({ setLocalUser }) {
     }
   }
 
+  // FIXME: empty username is considered valid.
   function loginUser() {
     console.log(`logged in ${text}`);
     localStorage.setItem(LOCAL_USER_KEY, text);
     setLocalUser(text);
-    // TODO: handle navigation
+    navigate('./button'); // button page will handle checking if user's banned
   }
 
   return (
