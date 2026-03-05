@@ -7,6 +7,7 @@ import { BrowserRouter, NavLink, Route, Routes } from 'react-router-dom';
 import { Login } from './login/login';
 import { Button } from './button/button';
 import { Banned } from './banned/banned';
+import { Profile } from './profile';
 
 import { STATUS_GOOD, STATUS_BANNED, LOCAL_USER_KEY } from "./constants.js";
 
@@ -19,12 +20,15 @@ export default function App() {
             <header>
               {/* TODO: This nav menu is a placeholder...I don't anticipate I'll have it in the end product... */}
               <nav className="ckh-nav-bar">
-                <span id="brand">Don't press the button</span>
-                <div className="ckh-vert-separator"></div>
-                <NavLink className="ckh-btn" to="">Home</NavLink> {/* go to log-in page by default */}
-                <NavLink className="ckh-btn" to="button">Button</NavLink>
-                <NavLink className="ckh-btn" to="banned">After pressing the button</NavLink>
+                <div id="brand">Don't press the button</div>
+                {/* <div className="ckh-vert-separator"></div> */}
+                {/* <NavLink className="ckh-btn" to="">Home</NavLink> */}
+                {/* <NavLink className="ckh-btn" to="button">Button</NavLink> */}
+                {/* <NavLink className="ckh-btn" to="banned">After pressing the button</NavLink> */}
               </nav>
+              <div style={{textAlign: "right"}}>
+                <Profile />
+              </div>
             </header>
   
             {/* <main> tag is provided by the components the Router uses */}
@@ -36,13 +40,9 @@ export default function App() {
             </Routes>
   
             <footer>
-              {/* TODO: this is temporary, here only to demonstrate the updating status. */}
-              <span className='react-pt2-status'>USER: {localUser ? localUser : "LOGGED OUT"}</span>
-              <div style={ {textAlign: "right"} }>
-                <span id="author-name">Caleb Hessing</span>
-                <div className="ckh-vert-separator"></div>
-                <a id="repo-link" href="https://github.com/chess6032/cs260-project">GitHub</a>
-              </div>
+                <span className="author-name">Caleb Hessing</span>
+                {/* <div className="ckh-vert-separator"></div> */}
+                <a className="repo-link" href="https://github.com/chess6032/cs260-project">GitHub</a>
             </footer>
           </div>
         </BrowserRouter>
