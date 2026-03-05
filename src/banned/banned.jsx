@@ -9,7 +9,7 @@ export function Banned() {
   const [quote, setQuote] = React.useState("Loading something wise...");
 
   React.useEffect(() => {
-    setQuote(`"This quote was filled by a useState setter. One day, that setter will use a cool external API call."`)
+    setQuote(`"This quote was filled by a useState setter. One day, that setter will use a cool 3rd-party API call."`)
   }, []); // by passing in an empty subarray for the dependencies, this useEffect callback will only be called the first time the Banned component renders.
 
   return (
