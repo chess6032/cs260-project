@@ -20,8 +20,10 @@ export function Login({ setLocalUser }) {
     }
   }
 
-  // FIXME: empty username is considered valid.
   function loginUser() {
+    if (text == '') {
+      return;
+    }
     console.log(`logged in ${text}`);
     localStorage.setItem(LOCAL_USER_KEY, text);
     setLocalUser(text);
