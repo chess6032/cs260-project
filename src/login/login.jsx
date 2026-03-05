@@ -3,12 +3,13 @@ import 'bootstrap/dist/css/bootstrap.min.css'; // I don't think this page uses b
 import './login.css';
 import { useNavigate } from 'react-router-dom';
 
-export function Login() {
+export function Login({ localUser, setLocalUser }) {
   const navigate = useNavigate();
 
   function loginUser() {
-    console.log("logged in user");
-    navigate("/button");
+    console.log(`logged in ${localUser}`);
+    // update local user in REACT AND in LOCAL STORAGE
+    // setLocalUser(localUser);
   }
 
   return (
