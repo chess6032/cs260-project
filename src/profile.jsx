@@ -4,7 +4,6 @@ import { useNavigate } from 'react-router-dom';
 import { STATUS_GOOD, STATUS_BANNED, LOCAL_USER_KEY } from './constants.js';
 
 export function Profile({ localUser, setLocalUser }) {
-  // TODO: add log out functionality. (Right now it just returns to login page.)
 
   const navigate = useNavigate();
 

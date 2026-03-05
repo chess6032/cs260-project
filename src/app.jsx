@@ -13,6 +13,8 @@ import { STATUS_GOOD, STATUS_BANNED, LOCAL_USER_KEY } from "./constants.js";
 
 export default function App() {
     const [localUser, setLocalUser] = React.useState(localStorage.getItem(LOCAL_USER_KEY) || null); // represents if the user 
+    // TODO: I abuse local storage a lot. Is there a way to refactor my code so that 
+    // the current user is just passed around as a variable to the different pages?
 
     return (
         <BrowserRouter>
