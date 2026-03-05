@@ -7,37 +7,63 @@ import { BrowserRouter, NavLink, Route, Routes } from 'react-router-dom';
 import { Login } from './login/login';
 import { Button } from './button/button';
 import { Banned } from './banned/banned';
+import { useEffect } from 'react';
+
+import { STATUS_GOOD, STATUS_BANNED, LOCAL_USER_KEY } from "./constants.js";
 
 export default function App() {
+    const [localUser, setLocalUser] = React.useState(null); // represents if the user 
+
+    // FIXME: 
+    // if I pass THIS function down to login.jsx as the Login component's "setLocalUser" function,
+    // it updates local storage but NOT the localUser variable. Meanwhile,
+    // if I pass setLocalUser (from React.useState) to the login component,
+    // it updates the localUser variable but NOT local storage. :(
+    function setCurrUser(username) {
+        // update local user in REACT AND in LOCAL STORAGE
+        console.log(`setting current user to : ${username}`);
+        localStorage.setItem(LOCAL_USER_KEY, JSON.stringify(username));
+        setLocalUser((user) => user);
+    }
+
+    // INITIALIZATION
+    useEffect(() => {
+        setCurrUser(null); // start w/ null local user prior to login
+    });
+
     return (
-      <BrowserRouter>
-        <div className="pagebody bg-dark text-light"> {/*Serves same purpose as <body> did before*/}
-          <header>
-            {/* TODO: This nav menu is a placeholder...I don't anticipate I'll have it in the end product... */}
-            <nav className="ckh-nav-bar">
-              <span id="brand">Don't press the button</span>
-              <div className="ckh-vert-separator"></div>
-              <NavLink className="ckh-btn" to="">Home</NavLink> {/* go to log-in page by default */}
-              <NavLink className="ckh-btn" to="button">Button</NavLink>
-              <NavLink className="ckh-btn" to="banned">After pressing the button</NavLink>
-            </nav>
-          </header>
-
-          {/* <main> tag is provided by the components the Router uses */}
-          <Routes>
-            <Route path='/' element={<Login />} exact /> {/* "exact" isn't needed for "/" paths anymore as of React V6...but the instructions had this here so I'll keep it ig*/}
-            <Route path='/button' element={<Button />}/>
-            <Route path='/banned' element={<Banned />}/>
-            <Route path='*' element={<NotFound />}/> {/* catches any other address so that we can give a 404 not found error. */}
-          </Routes>
-
-          <footer>
-            <span id="author-name">Caleb Hessing</span>
-            {/* <div class="ckh-vert-separator"></div> */}
-            <a id="repo-link" href="https://github.com/chess6032/cs260-project">GitHub</a>
-          </footer>
-        </div>
-      </BrowserRouter>
+        <BrowserRouter>
+          <div className="pagebody bg-dark text-light"> {/*Serves same purpose as <body> did before*/}
+            <header>
+              {/* TODO: This nav menu is a placeholder...I don't anticipate I'll have it in the end product... */}
+              <nav className="ckh-nav-bar">
+                <span id="brand">Don't press the button</span>
+                <div className="ckh-vert-separator"></div>
+                <NavLink className="ckh-btn" to="">Home</NavLink> {/* go to log-in page by default */}
+                <NavLink className="ckh-btn" to="button">Button</NavLink>
+                <NavLink className="ckh-btn" to="banned">After pressing the button</NavLink>
+              </nav>
+            </header>
+  
+            {/* <main> tag is provided by the components the Router uses */}
+            <Routes>
+              <Route path='/' element={<Login setLocalUser={setCurrUser} />} exact /> {/* "exact" isn't needed for "/" paths anymore as of React V6...but the instructions had this here so I'll keep it ig*/}
+              <Route path='/button' element={<Button />}/>
+              <Route path='/banned' element={<Banned />}/>
+              <Route path='*' element={<NotFound />}/> {/* catches any other address so that we can give a 404 not found error. */}
+            </Routes>
+  
+            <footer>
+              {/* TODO: this is temporary, here only to demonstrate the updating status. */}
+              <span className='react-pt2-status'>USER: {localUser ? localUser : "LOGGED OUT"}</span>
+              <div style={ {textAlign: "right"} }>
+                <span id="author-name">Caleb Hessing</span>
+                <div className="ckh-vert-separator"></div>
+                <a id="repo-link" href="https://github.com/chess6032/cs260-project">GitHub</a>
+              </div>
+            </footer>
+          </div>
+        </BrowserRouter>
     );
 }
 

@@ -3,13 +3,20 @@ import 'bootstrap/dist/css/bootstrap.min.css'; // I don't think this page uses b
 import './login.css';
 import { useNavigate } from 'react-router-dom';
 
-export function Login({ localUser, setLocalUser }) {
+export function Login({ setLocalUser }) {
   const navigate = useNavigate();
 
+  const [text, setText] = React.useState('');
+
+  function userTypesOnKeyboard(e) {
+    setText(e.target.value);
+    console.log(e.target.value);
+  };
+
   function loginUser() {
-    console.log(`logged in ${localUser}`);
+    console.log(`logged in ${text}`);
     // update local user in REACT AND in LOCAL STORAGE
-    // setLocalUser(localUser);
+    setLocalUser(text);
   }
 
   return (
@@ -19,8 +26,8 @@ export function Login({ localUser, setLocalUser }) {
       <div id="login-form">
 
         <div id="login-input">
-          <span>Email:</span>
-          <input type="text" placeholder="email@email.com"/>
+          <span>Username</span>
+          <input type="text" placeholder="username" onChange={userTypesOnKeyboard}/>
 
           <span>Password:&nbsp;</span>
           <input type="password" placeholder="password"/>

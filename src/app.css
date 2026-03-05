@@ -75,7 +75,6 @@ nav.ckh-nav-bar > .ckh-vert-separator {
     color: lightgrey;
 }
 
-
 @media (max-width: 768px) {
     nav.ckh-nav-bar {
         flex-direction: column;
