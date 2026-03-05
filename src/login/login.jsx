@@ -7,6 +7,18 @@ import { LOCAL_USER_KEY } from '../constants';
 export function Login({ setLocalUser }) {
   const navigate = useNavigate();
 
+  React.useEffect(() => {
+    let user = null;
+    try {
+      user = localStorage.getItem(LOCAL_USER_KEY);
+    } catch (ReferenceError) {
+      // do nothing actually lol
+    }
+    if (user) {
+      navigate('/button');
+    }
+  }, []);
+
   const [text, setText] = React.useState('');
 
   function handleUserTyping(e) {
