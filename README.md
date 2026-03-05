@@ -98,11 +98,11 @@ For this deliverable I did the following. I checked the box `[x]` and added a de
 
 For this deliverable I did the following. I checked the box `[x]` and added a description for things I completed.
 
-- [ ] **All functionality implemented or mocked out** - I did not complete this part of the deliverable.
+- [X] **All functionality implemented or mocked out**
   - I mocked out WebSocket w/ `useEffect()` and `setInterval()`. (Notification list on the button page.)
   - I mocked out a 3rd party API call by filling the contents of the quote on the banned page via a function.
   - I mocked out database persistency by using local storage to save when usernames are banned, so you can't go back to the button when signed in as a banned user.
-- [ ] **Hooks** - I did not complete this part of the deliverable.
+- [X] **Hooks** - I used `useState()` and `useEffect()` hooks extensively to implement reactivity.
 
 <!-- ## 🚀 Service deliverable
 

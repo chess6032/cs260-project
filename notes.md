@@ -38,7 +38,8 @@ Note that `./deployFiles.sh` will take EVERYTHING in the directory it's currentl
 
 Also WSL doesn't like smth about my key? But you need a POSIX-compliant terminal to run `deployFiles.sh`. Warp didn't work for me, but GitBash did.
 
-[!IMPORTANT] As of React Part 1, **use `./deployReact.sh` instead**, which has identical usage but is rewritten for our React toolchain.
+> [!IMPORTANT] 
+> As of React Part 1, **use `./deployReact.sh` instead**, which has identical usage but is rewritten for our React toolchain.
 
 ## HTML
 
