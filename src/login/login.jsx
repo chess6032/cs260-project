@@ -37,7 +37,7 @@ export function Login({ setLocalUser }) {
       <div id="login-form">
 
         <div id="login-input">
-          <span>Username</span>
+          <span>Username:&nbsp;</span>
           <input type="text" placeholder="username" onChange={handleUserTyping} onKeyDown={handleOnKeyDown}/>
 
           <span>Password:&nbsp;</span>
