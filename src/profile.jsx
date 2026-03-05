@@ -24,14 +24,20 @@ export function Profile({ localUser, setLocalUser }) {
 
   return (
     <div className="profile">
-      <span>{localUser ? (`USER: ${localUser}`) : "LOGGED OUT"}</span>
-      {localUser && <span className='ckh-vert-separator'></span>}
-      {localUser && 
+      { !localUser ? 
         <span>
-          STATUS: {localStorage.getItem(localStorage.getItem(LOCAL_USER_KEY)) == STATUS_GOOD ? "GOOD" : "BANNED"}&nbsp;
+          <span>LOGGED OUT</span>
+          <button className="ckh-btn btn-thin" onClick={logoutUser}>log out</button>
         </span>
+        : <span>
+            <span>USER: {localUser}</span>
+            <span className='ckh-vert-separator'></span>
+            <span>
+              STATUS: {localStorage.getItem(localStorage.getItem(LOCAL_USER_KEY)) == STATUS_GOOD ? "GOOD" : "BANNED"}&nbsp;
+            </span>
+            <button className="ckh-btn btn-thin" onClick={logoutUser}>log out</button>
+          </span>
       }
-      {localUser && <button className="ckh-btn" onClick={logoutUser}>log out</button>}
     </div>
   );
 }
