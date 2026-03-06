@@ -9,7 +9,7 @@ import { Button } from './button/button';
 import { Banned } from './banned/banned';
 import { Profile } from './profile';
 
-import { STATUS_GOOD, STATUS_BANNED, LOCAL_USER_KEY } from "./constants.js";
+import { LOCAL_USER_KEY } from "./constants.js";
 
 export default function App() {
     const [localUser, setLocalUser] = React.useState(localStorage.getItem(LOCAL_USER_KEY) || null); // represents if the user 
@@ -23,10 +23,6 @@ export default function App() {
               {/* TODO: This nav menu is a placeholder...I don't anticipate I'll have it in the end product... */}
               <nav className="ckh-nav-bar">
                 <div id="brand">Don't press the button</div>
-                {/* <div className="ckh-vert-separator"></div> */}
-                {/* <NavLink className="ckh-btn" to="">Home</NavLink> */}
-                {/* <NavLink className="ckh-btn" to="button">Button</NavLink> */}
-                {/* <NavLink className="ckh-btn" to="banned">After pressing the button</NavLink> */}
               </nav>
               <div style={{textAlign: "right"}}>
                 <Profile localUser={localUser} setLocalUser={setLocalUser}/>

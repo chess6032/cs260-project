@@ -291,8 +291,11 @@ We use NPM to manage packages. This takes three step:
 - `package-lock.json`: version of each package.
 - `node_modules/`: package source code files.
   - **MAKE SURE TO `.gitignore` THIS**.
-  - Can be rebuilt from `package-lock.json`.
-    - When you clone your repo to a new location, run `npm install`.
+  - Can be rebuilt from `package-lock.json` (via `npm install`).
+
+
+> [!IMPORTANT]
+> When you clone your repo to a new location, run `npm install`.
 
 ### Debugging in VS Code
 
