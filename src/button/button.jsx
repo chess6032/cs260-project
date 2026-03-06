@@ -10,7 +10,12 @@ export function Button() {
 
   // INITIAL RENDER: reroute the user if they're banned
   React.useEffect(() => {
-    let user = localStorage.getItem(LOCAL_USER_KEY);
+    let user = localStorage.getItem(LOCAL_USER_KEY || null);
+    if (!user) {
+      // user not logged in 
+      navigate('/'); // send to login page
+      return;
+    }
     let status = localStorage.getItem(user || null);
     if (!status) {
       // user doesn't have a state assigned yet
