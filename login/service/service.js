@@ -38,7 +38,7 @@ function getUser(field, value) {
 
 const uuid = require('uuid');
 
-// GENERATING COOKIES (cookie-parser)
+// GENERATING & DELETING COOKIES (cookie-parser)
 
 const cookieParser = require('cookie-parser');
 app.use(cookieParser());
@@ -52,6 +52,11 @@ function setAuthCookie(res, user) {
     httpOnly: true,
     sameSite: 'strict',
   });
+}
+
+function clearAuthCookie(res, user) {
+  delete user.token;
+  res.clearCookie('token');
 }
 
 // ~~~~~~~~~~~~~~~ ENDPOINTS ~~~~~~~~~~~~~~~
@@ -91,6 +96,14 @@ app.put('/api/auth', async (req, res) => {
 
 // logout
 app.delete('/api/auth', async (req, res) => {
+  const token = req.cookies['token'];
+  const user = await getUser('token', token);
+  if (user) { // check if user w/ token exists
+    clearAuthCookie(res, user);
+  }
+
+  // we don't care if token doesn't exist tho lol
+
   res.send({});
 });
 
