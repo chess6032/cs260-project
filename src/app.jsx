@@ -21,8 +21,8 @@ export default function App() {
       localStorage.setItem(LOCAL_USER_KEY, user);
     }
 
-    function AuthGate({ localUser, setLocalUserInGate }) {
-        const [authStatus, setAuthStatus] = React.useState('loading'); // 'loading' | 'banned' | 'ok' | 'unauthorized'
+    function AuthGate({ localUser }) {
+        const [authStatus, setAuthStatus] = React.useState('loading'); // 'loading' | 'banned' | 'ok'
 
         React.useEffect(() => {
             if (!localUser) return; // no need to check ban status if user isn't even logged in.
@@ -36,28 +36,26 @@ export default function App() {
                   setAuthStatus(data.banned ? 'banned' : 'ok');
                 } else {
                   unauthorized = true;
-                  setAuthStatus('unauthorized');
                 }
               } catch {
                 console.log('oops');
                 unauthorized = true;
-                setAuthStatus('unauthorized');
               } finally {
                 console.log("sus");
               }
 
               if (unauthorized) {
                 console.log('jeepers');
-                await localStorage.removeItem(LOCAL_USER_KEY);
+                await localStorage.removeItem(LOCAL_USER_KEY); // works
+                // await localStorage.setItem(LOCAL_USER_KEY, null); // doesn't work
+                setLocalUser(null);
               }
             }
             checkAuthStatus();
     
         }, [localUser]);
-
-        console.log(authStatus, authStatus === 'unauthorized' ? '(true)' : '(false)');
     
-        if (!localUser || authStatus === 'unauthorized') {
+        if (!localUser) {
           return <Navigate to="/login" replace />;
         }
         if (authStatus === 'loading') return <main>Loading...</main>; // while waiting for fetch API call
