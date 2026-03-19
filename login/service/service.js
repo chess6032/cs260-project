@@ -174,7 +174,7 @@ apiRouter.get('/isbanned', async (req, res) => {
 });
 
 // TODO: get rid of this for prod
-apiRouter.get('/users', async (req, res) => {
+apiRouter.get('/users', async (_req, res) => {
   res.send({ msg: usersDB.map((user) => {return {email: user.email, banned: user.banned}}) });
 })
 

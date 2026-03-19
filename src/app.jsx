@@ -21,27 +21,47 @@ export default function App() {
       localStorage.setItem(LOCAL_USER_KEY, user);
     }
 
-    function AuthGate({ localUser }) {
-        const [banStatus, setBanStatus] = React.useState('loading'); // 'loading' | 'banned' | 'ok'
+    function AuthGate({ localUser, setLocalUserInGate }) {
+        const [authStatus, setAuthStatus] = React.useState('loading'); // 'loading' | 'banned' | 'ok' | 'unauthorized'
 
         React.useEffect(() => {
             if (!localUser) return; // no need to check ban status if user isn't even logged in.
-            async function checkBanStatus() {
+            async function checkAuthStatus() {
+              let unauthorized = false;
               try {
                 const response = await fetch('/api/isbanned');
-                const data = response.ok ? await response.json() : { banned: true };
-                setBanStatus(data?.banned ? 'banned' : 'ok');
+                console.log(response.ok);
+                if (response.ok) {
+                  const data = await response.json();
+                  setAuthStatus(data.banned ? 'banned' : 'ok');
+                } else {
+                  unauthorized = true;
+                  setAuthStatus('unauthorized');
+                }
               } catch {
-                setBanStatus('banned');
+                console.log('oops');
+                unauthorized = true;
+                setAuthStatus('unauthorized');
+              } finally {
+                console.log("sus");
+              }
+
+              if (unauthorized) {
+                console.log('jeepers');
+                await localStorage.removeItem(LOCAL_USER_KEY);
               }
             }
-            checkBanStatus();
+            checkAuthStatus();
     
         }, [localUser]);
+
+        console.log(authStatus, authStatus === 'unauthorized' ? '(true)' : '(false)');
     
-        if (!localUser) return <Navigate to="/login" replace />;
-        if (banStatus === 'loading') return <main>Loading...</main>; // while waiting for fetch API call
-        if (banStatus === 'banned') return <Navigate to='/banned' replace />;
+        if (!localUser || authStatus === 'unauthorized') {
+          return <Navigate to="/login" replace />;
+        }
+        if (authStatus === 'loading') return <main>Loading...</main>; // while waiting for fetch API call
+        if (authStatus === 'banned') return <Navigate to='/banned' replace />;
         return <Navigate to='/button' replace />; // banStatus === 'ok'
     }
 
@@ -49,7 +69,6 @@ export default function App() {
         <BrowserRouter>
           <div className="pagebody bg-dark text-light"> {/*Serves same purpose as <body> did before*/}
             <header>
-              {/* TODO: This nav menu is a placeholder...I don't anticipate I'll have it in the end product... */}
               <nav className="ckh-nav-bar">
                 <div id="brand">Don't press the button</div>
               </nav>
@@ -63,7 +82,7 @@ export default function App() {
               <Route path='login' element={<Login setLocalUser={setLocalUserInStorageAndState} />} exact /> {/* "exact" isn't needed for "/" paths anymore as of React V6...but the instructions had this here so I'll keep it ig*/}
               <Route path='button' element={<Button />}/>
               <Route path='banned' element={<Banned />}/>
-              <Route path='/' element={<AuthGate localUser={localUser}/>}/>
+              <Route path='/' element={<AuthGate localUser={localUser} setLocalUserInGate={setLocalUserInStorageAndState}/>}/>
               <Route path='*' element={<NotFound />}/> {/* catches any other address so that we can give a 404 not found error. */}
             </Routes>
   
