@@ -4,16 +4,17 @@
 const express = require('express');
 const app = express();
 
-// ~~~~~~~~~~~~~~~ HELPER FUNCTIONS & STUFF ~~~~~~~~~~~~~~~
+const bcrypt = require('bcryptjs');
+const uuid = require('uuid');
+const cookieParser = require('cookie-parser');
 
-
-// PASSWORD HASHING & USER STORAGE (bycryptjs)
+const usersDB = [];
+// ^ this is our dummy DB. it would clear whenever we restart our server tho. 
 // TODO: replace w/ query shih
 
-const bcrypt = require('bcryptjs');
+// ~~~~~~~~~~~~~~~ HELPER FUNCTIONS ~~~~~~~~~~~~~~~
 
-const users = [];
-// ^ this is our dummy DB. it would clear whenever we restart our server tho. 
+// PASSWORD HASHING & USER STORAGE (bycryptjs)
 
 async function createUser(email, password) {
   const passwordHash = await bcrypt.hash(password, 10);
@@ -23,31 +24,25 @@ async function createUser(email, password) {
     password: passwordHash,
   };
 
-  users.push(user);
+  usersDB.push(user);
 
   return user;
 }
 
 function getUser(field, value) {
   if (value) {
-    return users.find((user) => user[field] === value);
+    return usersDB.find((user) => user[field] === value);
   }
   return null;
 }
 
-// GENERATING TOKENS (uuid)
-
-const uuid = require('uuid');
-
 // GENERATING & DELETING COOKIES (cookie-parser)
 
-const cookieParser = require('cookie-parser');
-app.use(cookieParser());
 
 // Create a token for the user and send a cookie containing the token
 function setAuthCookie(res, user) {
   user.token = uuid.v4();
-
+  
   res.cookie('token', user.token, {
     secure: true,
     httpOnly: true,
