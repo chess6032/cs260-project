@@ -9,6 +9,8 @@ const uuid = require('uuid');
 const cookieParser = require('cookie-parser');
 let apiRouter = express.Router();
 
+const { filter } = require('./filter');
+
 const STATIC_ROOT_PATH = 'public'
 
 // middleware: 
@@ -179,9 +181,23 @@ apiRouter.get('/users', async (_req, res) => {
   res.send({ msg: usersDB.map((user) => {return {email: user.email, banned: user.banned}}) });
 })
 
+// calls the kanye.rest API while filtering out NSFW responses
 apiRouter.get('/quote', async (req, res) => {
-  const externalApiCall = await fetch('https://api.kanye.rest');
-  res.send(await externalApiCall.json());
+  console.log('yahooo');
+
+  const response = await fetch('https://api.kanye.rest');
+  console.log('Kanye.rest API called');
+
+  const data = await response.json();
+  console.log('converted kanye.rest response to JSON');
+
+  const kanyeQuote = data.quote;
+  console.log('retrieved unfiltered quote:', kanyeQuote);
+
+  const cleanQuote = filter(kanyeQuote);
+  console.log('filtered quote:', cleanQuote);
+
+  res.json({quote: cleanQuote, original: kanyeQuote});
 });
 
 // default error handler

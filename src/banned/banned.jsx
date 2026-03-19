@@ -17,7 +17,9 @@ export function Banned({ localUser }) {
 
   React.useEffect(() => {
     async function populateQuote() {
+      console.log('yippeee');
       const response = await fetch('/api/quote');
+      console.log('woooahahaahhhhh');
       const data = await response.json();
       const quote = data.quote;
       console.log(quote);
