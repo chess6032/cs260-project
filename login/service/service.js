@@ -80,6 +80,14 @@ const verifyNotBanned = async (req, res, next) => {
   }
 }
 
+const verifyAuth = async (req, res, next) => {
+  const user = await getUser(AUTH_FIELD_NAME, req.cookies[AUTH_COOKIE_NAME]);
+  if (user) {
+    next();
+  } else {
+    res.status(401).send({ msg: `Unauthorized.`} );
+  }
+}
 
 
 // ~~~~~~~~~~~~~~~ ENDPOINTS ~~~~~~~~~~~~~~~

@@ -7,7 +7,7 @@ export function Profile({ localUser, setLocalUser }) {
 
   const navigate = useNavigate();
 
-  function logoutUser() {
+  async function logoutUser() {
     let userSet = true;
     try {
       localStorage.removeItem(LOCAL_USER_KEY, null);
@@ -18,6 +18,7 @@ export function Profile({ localUser, setLocalUser }) {
       setLocalUser(null);
     }
     console.log(`logged out ${localUser}`);
+    await fetch('/api/auth/logout');
     navigate(''); // navigate to home page (login)
   }
 
