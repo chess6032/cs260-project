@@ -8,12 +8,13 @@ const bcrypt = require('bcryptjs');
 const uuid = require('uuid');
 const cookieParser = require('cookie-parser');
 let apiRouter = express.Router();
-const ROOT_PATH = './'
+
+const STATIC_ROOT_PATH = 'public'
 
 // middleware: 
 app.use(express.json()); // parse request's JSON body
 app.use(cookieParser()); // cookies! (from cookie-parser package I believe)
-app.use(express.static(ROOT_PATH)); // serves up static front-end content. NOTE: the deploy script moves all your static files to public/
+app.use(express.static(STATIC_ROOT_PATH)); // serves up static front-end content. NOTE: the deploy script moves all your static files to public/
 app.use('/api', apiRouter); // to distinguish endpoint APIs to frontend files. (endpoint paths begin w/ '/api')
 
 const AUTH_COOKIE_NAME = 'token'
@@ -185,10 +186,10 @@ app.use(function (err, req, res, next) {
 
 // return app's default page if path is unknown
 app.use((_req, res) => {
-  res.sendFile('index.html', {root: ROOT_PATH});
+  res.sendFile('index.html', {root: STATIC_ROOT_PATH});
 });
 
-const port = 3000;
+const port = process.argv.length > 2 ? process.argv[2] : 4000; // startup MUST be on port 4000
 app.listen(port, function () {
   console.log(`Listening on port ${port}`);
 });
