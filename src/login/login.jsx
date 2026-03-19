@@ -19,26 +19,44 @@ export function Login({ setLocalUser }) {
     }
   }, []);
 
-  const [text, setText] = React.useState('');
+  const [emailText, setEmailText] = React.useState('');
+  const [passwordText, setPasswordText] = React.useState('');
 
-  function handleUserTyping(e) {
-    setText(e.target.value);
-    console.log(e.target.value);
+  function handleEmailFieldTyping(e) {
+    setEmailText(e.target.value);
+    console.log('username: ', e.target.value);
   };
 
-  function handleOnKeyDown(e) {
-    if (e.key == "Enter") {
-      loginUser();
+  function handlePasswordFieldTyping(e) {
+    setPasswordText(e.target.value);
+    console.log('password: ', e.target.value);
+  }
+
+  // function handleOnKeyDown(e) {
+  //   if (e.key == "Enter") {
+  //     authenticateUser('/api/auth/login');
+  //   }
+  // }
+
+  async function loginOrCreate(endpoint) {
+    const response = await fetch(endpoint, {
+      method: 'post',
+      body: JSON.stringify({ email: emailText, password: passwordText }),
+      headers: {
+        'Content-Type': 'application/json; charset=UTF-8',
+      },
+    });
+    if (response?.status === 200) {
+      setLocalUser(emailText);
     }
   }
 
-  function loginUser() {
-    if (text == '') {
+  async function authenticateUser(endpoint) {
+    if (emailText === '' || passwordText === '') {
       return;
     }
-    console.log(`logged in ${text}`);
-    localStorage.setItem(LOCAL_USER_KEY, text);
-    setLocalUser(text);
+    console.log(`logged in ${emailText}`);
+    await loginOrCreate(endpoint, emailText, passwordText); 
     navigate('./button'); // button page will handle checking if user's banned
   }
 
@@ -49,16 +67,16 @@ export function Login({ setLocalUser }) {
       <div id="login-form">
 
         <div id="login-input">
-          <span>Username:&nbsp;</span>
-          <input type="text" placeholder="username" onChange={handleUserTyping} onKeyDown={handleOnKeyDown}/>
+          <span>Email:&nbsp;</span>
+          <input type="text" placeholder="email" onChange={handleEmailFieldTyping} onKeyDown={handleOnKeyDown}/>
 
           <span>Password:&nbsp;</span>
-          <input type="password" placeholder="password" onKeyDown={handleOnKeyDown}/>
+          <input type="password" placeholder="password" onChange={handlePasswordFieldTyping} onKeyDown={handleOnKeyDown}/>
         </div>
 
         <div id="login-buttons">
-          <button className="ckh-btn" onClick={loginUser}>Login</button>
-          <button className="ckh-btn" onClick={loginUser}>Register</button>
+          <button className="ckh-btn" onClick={() => authenticateUser('/api/auth/login')}>Login</button>
+          <button className="ckh-btn" onClick={() => authenticateUser('/api/auth/register')}>Register</button>
         </div>
       </div>
     </main>
