@@ -13,21 +13,6 @@ export function Banned() {
   const [quote, setQuote] = React.useState("Loading something wise...");
 
   React.useEffect(() => {
-    // check that user is banned
-    // let user = localStorage.getItem(LOCAL_USER_KEY || null);
-    // if (!user) {
-    //   // user not logged in
-    //   navigate('/');
-    //   return; // not sure if ts is necessary
-    // }
-    // let status = localStorage.getItem(user || null);
-    // if (!status) {
-    //   navigate('/');
-    // } else if (status == STATUS_GOOD) {
-    //   navigate('/button');
-    // }
-
-
     setQuote(`"This quote was filled by a useState setter. One day, that setter will use a cool 3rd-party API call."`)
   }, []); // by passing in an empty subarray for the dependencies, this useEffect callback will only be called the first time the Banned component renders.
 

@@ -150,17 +150,18 @@ apiRouter.put('/banme', async (req, res) => {
   } else {
     res.status(401).send( { msg: `Unauthorized. (I don't even know who you are.)`} );
   }
+  console.log('banme endpont finished\n');
 });
 
 // check if user is banned
 apiRouter.get('/isbanned', async (req, res) => {
   console.log('isbanned endpoint called');
   const user = await getUser(AUTH_FIELD_NAME, req.cookies[AUTH_COOKIE_NAME]);
-  let {email, banned} = user;
-  console.log(`user: ${email} (${banned ? 'banned' : 'good'})`);
   if (user) {
+    let {email, banned} = user;
+    console.log(`  user: ${email} (${banned ? 'banned' : 'good'})`);
     // res.contentType('application/json');
-    console.log('is this user banned?', user.banned);
+    console.log('  is this user banned?', user.banned);
     if (user.banned) {
       res.send({ msg: 'You HAVE pressed the button. (I hate you.)', banned: true });
     } else {
@@ -169,7 +170,7 @@ apiRouter.get('/isbanned', async (req, res) => {
   } else {
     res.status(401).send( {msg: `Unauthorized. (I don't even know who you are.)` });
   }
-  console.log('/isbanned API finished');
+  console.log('isbanned endpoint finished\n');
 });
 
 // TODO: get rid of this for prod

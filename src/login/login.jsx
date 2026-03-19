@@ -25,20 +25,10 @@ export function Login({ setLocalUser }) {
 
   function handleEmailFieldTyping(e) {
     setEmailText(e.target.value);
-    console.log('username: ', e.target.value);
   };
 
   function handlePasswordFieldTyping(e) {
     setPasswordText(e.target.value);
-    console.log('password: ', e.target.value);
-  }
-
-  function handleOnKeyDown(e) {
-    // TODO: uhhhh idk.
-    return;
-    if (e.key == "Enter") {
-      authenticateUser('/api/auth/login');
-    }
   }
 
   async function loginOrCreate(endpoint) {
@@ -58,8 +48,8 @@ export function Login({ setLocalUser }) {
     if (emailText === '' || passwordText === '') {
       return;
     }
-    console.log(`logged in ${emailText}`);
     await loginOrCreate(endpoint, emailText, passwordText); 
+    console.log(`authenticated ${emailText}`);
     navigate('/');
   }
 
@@ -71,10 +61,10 @@ export function Login({ setLocalUser }) {
 
         <div id="login-input">
           <span>Email:&nbsp;</span>
-          <input type="text" placeholder="email" onChange={handleEmailFieldTyping} onKeyDown={handleOnKeyDown}/>
+          <input type="text" placeholder="email" onChange={handleEmailFieldTyping} />
 
           <span>Password:&nbsp;</span>
-          <input type="password" placeholder="password" onChange={handlePasswordFieldTyping} onKeyDown={handleOnKeyDown}/>
+          <input type="password" placeholder="password" onChange={handlePasswordFieldTyping} />
         </div>
 
         <div id="login-buttons">

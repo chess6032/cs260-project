@@ -27,10 +27,8 @@ export default function App() {
         React.useEffect(() => {
             if (!localUser) return; // no need to check ban status if user isn't even logged in.
             async function checkBanStatus() {
-              console.log('checkBanStatus()');
               try {
                 const response = await fetch('/api/isbanned');
-                console.log('isbanned endpoint finished');
                 const data = response.ok ? await response.json() : { banned: true };
                 setBanStatus(data?.banned ? 'banned' : 'ok');
               } catch {

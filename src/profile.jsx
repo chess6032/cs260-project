@@ -19,7 +19,7 @@ export function Profile({ localUser, setLocalUser }) {
     }
     console.log(`logged out ${localUser}`);
     await fetch('/api/auth/logout');
-    navigate(''); // navigate to home page (login)
+    navigate('/'); // navigate to home page (login)
   }
 
   // TODO: make header size consistent regardless of log out button's presence/padding?
