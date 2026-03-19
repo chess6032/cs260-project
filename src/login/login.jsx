@@ -60,7 +60,7 @@ export function Login({ setLocalUser }) {
     }
     console.log(`logged in ${emailText}`);
     await loginOrCreate(endpoint, emailText, passwordText); 
-    navigate('./button'); // button page will handle checking if user's banned
+    navigate('/');
   }
 
   return (

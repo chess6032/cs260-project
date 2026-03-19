@@ -137,6 +137,7 @@ apiRouter.delete('/auth/logout', async (req, res) => {
 // ban user
 // TODO: uhhh is it wise to expose this as a service endpoint?
 apiRouter.put('/banme', async (req, res) => {
+  console.log('banme endpoint called');
   const user = await getUser(AUTH_FIELD_NAME, req.cookies[AUTH_COOKIE_NAME]);
   if (user) {
     if (user.banned) {
@@ -152,9 +153,12 @@ apiRouter.put('/banme', async (req, res) => {
 
 // check if user is banned
 apiRouter.get('/isbanned', async (req, res) => {
-  console.log('/isbanned API called');
+  console.log('isbanned endpoint called');
   const user = await getUser(AUTH_FIELD_NAME, req.cookies[AUTH_COOKIE_NAME]);
+  let {email, banned} = user;
+  console.log(`user: ${email} (${banned ? 'banned' : 'good'})`);
   if (user) {
+    // res.contentType('application/json');
     console.log('is this user banned?', user.banned);
     if (user.banned) {
       res.send({ msg: 'You HAVE pressed the button. (I hate you.)', banned: true });
@@ -166,6 +170,11 @@ apiRouter.get('/isbanned', async (req, res) => {
   }
   console.log('/isbanned API finished');
 });
+
+// TODO: get rid of this for prod
+apiRouter.get('/users', async (req, res) => {
+  res.send({ msg: usersDB.map((user) => {return {email: user.email, banned: user.banned}}) });
+})
 
 // default error handler
 app.use(function (err, req, res, next) {

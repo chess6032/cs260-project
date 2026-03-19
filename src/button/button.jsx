@@ -33,9 +33,10 @@ export function Button( /*{isUserBanned}*/ ) {
   // if (checking) return null;
 
   async function userPressesButton() {
+    console.log('USER PRESSED BUTTON!!!');
     let response = await fetch('/api/banme');
-    console.log('hello there');
-    navigate("/banned");
+    console.log(JSON.stringify(response));
+    navigate("/");
   }
 
   return (
