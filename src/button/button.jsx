@@ -31,10 +31,12 @@ export function Button( {isUserBanned} ) {
     checkBanStatus();
   }, []);
 
-  function userPressesButton() {
+  async function userPressesButton() {
     
     // let user = localStorage.getItem(LOCAL_USER_KEY);
     // localStorage.setItem(user, STATUS_BANNED);
+    let response = await fetch('/api/banme');
+    console.log('hello there');
     navigate("/banned");
   }
 
