@@ -62,16 +62,6 @@ function clearAuthCookie(res, user) {
 
 // DEALING W/ BANNING THE USER & STUFF
 
-async function banUser(user) {
-  if (!user) {
-    console.error("banUser: ermmmm... you gave me a false-y user??");
-  }
-  if (user.banned) {
-    console.error("banUser: ermmmm... I got a user that was already banned???");
-  }
-  user.banned = true;
-}
-
 // TODO: does it even make sense for my project to use middleware for ts?
 const verifyNotBanned = async (req, res, next) => {
   const user = await getUser(AUTH_FIELD_NAME, req.cookies[AUTH_COOKIE_NAME]);
@@ -135,14 +125,12 @@ app.delete('/api/logout', async (req, res) => {
 
 // ban user
 // TODO: uhhh is it wise to expose this as a service endpoint?
-app.put('/api/ban', async (req, res) => {
+app.put('/api/banme', async (req, res) => {
   const user = await getUser(AUTH_FIELD_NAME, req.cookies[AUTH_COOKIE_NAME]);
-  if (!user) {
-    res.status(401).send( { msg: `Unauthorized. (I don't even know who you are.)`});
-  } else if (user.banned) {
-    res.status(401).send({ msg: 'Unauthorized. (Only the wise may declare who is foolish.)' });
+  if (user) {
+    user.banned = true;
   } else {
-    banUser(user);
+    res.status(401).send( { msg: `Unauthorized. (I don't even know who you are.)`} );
   }
 });
 
