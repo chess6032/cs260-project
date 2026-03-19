@@ -15,7 +15,7 @@ let usersDB = [];
 // ^ this is our dummy DB. it would clear whenever we restart our server tho. 
 // TODO: replace w/ query shih
 
-let apiRouter = express.Router();
+// let apiRouter = express.Router(); // FIXME: apparently I don't need ts?
 
 // ~~~~~~~~~~~~~~~ HELPER FUNCTIONS ~~~~~~~~~~~~~~~
 
@@ -49,7 +49,7 @@ function setAuthCookie(res, user) {
   user[AUTH_FIELD_NAME] = uuid.v4();
   
   res.cookie(AUTH_COOKIE_NAME, user[AUTH_FIELD_NAME], {
-    secure: true,
+    secure: false, // TODO: set back to true for prod
     httpOnly: true,
     sameSite: 'strict',
   });
@@ -65,7 +65,7 @@ function clearAuthCookie(res, user) {
 // TODO: does it even make sense for my project to use middleware for ts?
 const verifyNotBanned = async (req, res, next) => {
   const user = await getUser(AUTH_FIELD_NAME, req.cookies[AUTH_COOKIE_NAME]);
-  if (user) {
+  if (user && !user.banned) {
     next();
   } else {
     res.status(401).send({ msg: `Unauthorized (YOU PRESSED THE BUTTON, FOOL!)` });
@@ -79,10 +79,13 @@ const verifyNotBanned = async (req, res, next) => {
 // middleware: 
 app.use(express.json()); // parse request's JSON body
 app.use(cookieParser()); // cookies! (from cookie-parser package I believe)
-app.use('/api', apiRouter); // to distinguish endpoint APIs to frontend files. (endpoint paths begin w/ '/api')
+// app.use('/api', apiRouter); // to distinguish endpoint APIs to frontend files. (endpoint paths begin w/ '/api')
+// FIXME: apparently I don't need ts?
 
 // registration
 app.post('/api/register', async (req, res) => {
+  console.log('body:', req.body);
+  console.log('content-type:', req.headers['content-type']);
   if (await getUser('email', req.body.email)) {
     // FAIL: user email already exists
     res.status(409).send({ msg: 'Existing user' });
@@ -113,7 +116,7 @@ app.post('/api/login', async (req, res) => {
 // logout
 app.delete('/api/logout', async (req, res) => {
   const token = req.cookies[AUTH_COOKIE_NAME];
-  const user = await getUser(AUTH_COOKIE_NAME, token);
+  const user = await getUser(AUTH_FIELD_NAME, token);
   if (user) { // check if there exists a user authenticated w/ token
     clearAuthCookie(res, user);
   }
@@ -128,27 +131,18 @@ app.delete('/api/logout', async (req, res) => {
 app.put('/api/banme', async (req, res) => {
   const user = await getUser(AUTH_FIELD_NAME, req.cookies[AUTH_COOKIE_NAME]);
   if (user) {
-    user.banned = true;
+    if (user.banned) {
+      res.send({ msg: `lol you're already banned but OK`});
+    } else {
+      user.banned = true;
+      res.send({ msg: `you have been banned. (I hate you.)`});
+    }
   } else {
     res.status(401).send( { msg: `Unauthorized. (I don't even know who you are.)`} );
   }
 });
 
-// TODO: I don't think I need ts getMe endpoint
-// // getMe
-// app.get('/api/user/me', async (req, res) => {
-//   const token = req.cookies['token''];
-//   const user = await getUser('token', token);
-//   if (user) { // check if there exists a user authenticated w/ token
-//     // SUCCESS:
-//     res.send({ email: user.email });
-//   } else {
-//     // FAILURE: no user w/ token exists
-//     res.status(401).send({ msg: 'Unauthorized' });
-//   }
-// });
-
-// const port = 3000;
-// app.listen(port, function () {
-//   console.log(`Listening on port ${port}`);
-// });
+const port = 3000;
+app.listen(port, function () {
+  console.log(`Listening on port ${port}`);
+});
