@@ -4,9 +4,12 @@
 const express = require('express');
 const app = express();
 
+// middleware: parse request's JSON body
+app.use(express.json());
+
 // registration
 app.post('/api/auth', async (req, res) => {
-  res.send({ email: 'marta@id.com' });
+  res.send(req.body);
 });
 
 // login
