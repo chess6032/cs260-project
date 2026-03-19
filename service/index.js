@@ -189,7 +189,7 @@ app.use((_req, res) => {
   res.sendFile('index.html', {root: STATIC_ROOT_PATH});
 });
 
-const port = process.argv.length > 2 ? process.argv[2] : 4000; // startup MUST be on port 4000
+const port = process.env.VITE_PROXY_PORT || 4000;
 app.listen(port, function () {
   console.log(`Listening on port ${port}`);
 });
