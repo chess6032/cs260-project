@@ -32,11 +32,13 @@ export function Login({ setLocalUser }) {
     console.log('password: ', e.target.value);
   }
 
-  // function handleOnKeyDown(e) {
-  //   if (e.key == "Enter") {
-  //     authenticateUser('/api/auth/login');
-  //   }
-  // }
+  function handleOnKeyDown(e) {
+    // TODO: uhhhh idk.
+    return;
+    if (e.key == "Enter") {
+      authenticateUser('/api/auth/login');
+    }
+  }
 
   async function loginOrCreate(endpoint) {
     const response = await fetch(endpoint, {

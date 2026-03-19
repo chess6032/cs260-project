@@ -8,7 +8,7 @@ const bcrypt = require('bcryptjs');
 const uuid = require('uuid');
 const cookieParser = require('cookie-parser');
 let apiRouter = express.Router();
-const ROOT_PATH = './'
+const ROOT_PATH = 'public'
 
 // middleware: 
 app.use(express.json()); // parse request's JSON body
