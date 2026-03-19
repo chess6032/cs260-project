@@ -82,6 +82,8 @@ app.use(cookieParser()); // cookies! (from cookie-parser package I believe)
 // app.use('/api', apiRouter); // to distinguish endpoint APIs to frontend files. (endpoint paths begin w/ '/api')
 // FIXME: apparently I don't need ts?
 
+app.use(express.static('public')); // serves up static front-end content
+
 // registration
 app.post('/api/register', async (req, res) => {
   console.log('body:', req.body);
@@ -140,6 +142,16 @@ app.put('/api/banme', async (req, res) => {
   } else {
     res.status(401).send( { msg: `Unauthorized. (I don't even know who you are.)`} );
   }
+});
+
+// default error handler
+app.use(function (err, req, res, next) {
+  res.status(500).send({ type: err.name, message: err.message });
+});
+
+// return app's default page if path is unknown
+app.use((_req, res) => {
+  res.sendFile('index.html', {root: 'public'});
 });
 
 const port = 3000;
