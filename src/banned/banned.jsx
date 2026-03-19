@@ -1,13 +1,16 @@
 import React from 'react';
 import 'bootstrap/dist/css/bootstrap.min.css'; // I don't think this page uses bootstrap but just in case...
 import './banned.css';
-import { useNavigate } from 'react-router-dom';
+import { useNavigate, Navigate } from 'react-router-dom';
 import { LOCAL_USER_KEY, STATUS_GOOD } from '../constants';
 
 // react pt. 2: added placeholder JS for 3rd-party service calls. (See Simon React Pt. 2 --> About component)
 
-export function Banned() {
-  const navigate = useNavigate();
+export function Banned({ localUser }) {
+  if (!localUser) {
+    console.log('sending you back to where you came from---NERD');
+    return <Navigate to='/' replace />
+  }
 
   // PLACEHOLDER FOR 3RD-PARTY SERVICE CALLS
   const [quote, setQuote] = React.useState("Loading something wise...");

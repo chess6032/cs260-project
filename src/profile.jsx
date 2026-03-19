@@ -8,9 +8,9 @@ export function Profile({ localUser, setLocalUser }) {
   const navigate = useNavigate();
 
   async function logoutUser() {
-      setLocalUser(null);
+    await fetch('/api/auth/logout', { method: 'DELETE' });
     console.log(`logged out ${localUser}`);
-    await fetch('/api/auth/logout');
+    setLocalUser(null);
     navigate('/'); // navigate to home page (login)
   }
 

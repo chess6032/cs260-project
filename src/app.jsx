@@ -47,10 +47,17 @@ export default function App() {
         }, [localUser]);
     
         if (!localUser) {
+          console.log('rerouting to LOGIN page.');
           return <Navigate to="/login" replace />;
         }
-        if (authStatus === 'loading') return <main>Loading...</main>; // while waiting for fetch API call
-        if (authStatus === 'banned') return <Navigate to='/banned' replace />;
+        if (authStatus === 'loading') {
+          return <main>Loading...</main>; // while waiting for fetch API call
+        }
+        if (authStatus === 'banned') {
+          console.log('rerouting to BANNED page.');
+          return <Navigate to='/banned' replace />;
+        }
+        console.log('rerouting to BUTTON page.');
         return <Navigate to='/button' replace />; // banStatus === 'ok'
     }
 
@@ -69,8 +76,8 @@ export default function App() {
             {/* <main> tag is provided by the components the Router uses */}
             <Routes>
               <Route path='login' element={<Login setLocalUser={(user) => { setLocalUser(user); localStorage.setItem(LOCAL_USER_KEY, user); }} />} exact /> {/* "exact" isn't needed for "/" paths anymore as of React V6...but the instructions had this here so I'll keep it ig*/}
-              <Route path='button' element={<Button />}/>
-              <Route path='banned' element={<Banned />}/>
+              <Route path='button' element={<Button localUser={localUser} />}/>
+              <Route path='banned' element={<Banned localUser={localUser} />}/>
               <Route path='/' element={<AuthGate localUser={localUser} />}/>
               <Route path='*' element={<NotFound />}/> {/* catches any other address so that we can give a 404 not found error. */}
             </Routes>
