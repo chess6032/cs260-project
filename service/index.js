@@ -183,9 +183,10 @@ apiRouter.get('/users', async (_req, res) => {
 
 // calls the kanye.rest API while filtering out NSFW responses
 apiRouter.get('/quote', async (req, res) => {
-  const response = await fetch('https://api.kanye.rest');
-  const data = await response.json();
-  const kanyeQuote = data.quote;
+  // const response = await fetch('https://api.kanye.rest');
+  // const data = await response.json();
+  // const kanyeQuote = data.quote;
+  const kanyeQuote = `One day I'm gon' marry a porn star`;
   const cleanQuote = filter(kanyeQuote);
   console.log(`original: ${kanyeQuote}`);
   res.json({quote: cleanQuote, original: kanyeQuote});
