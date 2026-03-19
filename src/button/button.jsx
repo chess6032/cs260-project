@@ -7,6 +7,7 @@ import { STATUS_GOOD, STATUS_BANNED, LOCAL_USER_KEY } from '../constants';
 
 export function Button( {isUserBanned} ) {
   const navigate = useNavigate();
+  const [checking, setChecking] = React.useState(true); // start as "loading"
 
   // INITIAL RENDER: reroute the user if they're banned
   React.useEffect(() => {
@@ -17,24 +18,20 @@ export function Button( {isUserBanned} ) {
         navigate('/'); // send to login page
         return;
       }
-      if (await isUserBanned()) {
+      const isBanned = await isUserBanned();
+      console.log(isBanned);
+      if (isBanned) {
         navigate('/banned');
+      } else {
+        setChecking(false); // only display page once we know fs the user is not banned
       }
-      // let status = localStorage.getItem(user || null);
-      // if (!status) {
-      //   // user doesn't have a state assigned yet
-      //   localStorage.setItem(user, STATUS_GOOD);
-      // } else if (status == STATUS_BANNED) {
-      //   navigate('/banned');
-      // }
     }
     checkBanStatus();
   }, []);
 
+  if (checking) return null;
+
   async function userPressesButton() {
-    
-    // let user = localStorage.getItem(LOCAL_USER_KEY);
-    // localStorage.setItem(user, STATUS_BANNED);
     let response = await fetch('/api/banme');
     console.log('hello there');
     navigate("/banned");
