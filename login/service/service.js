@@ -77,7 +77,16 @@ app.post('/api/auth', async (req, res) => {
 
 // login
 app.put('/api/auth', async (req, res) => {
-  res.send({ email: 'marta@id.com' });
+  const user = await getUser('email', req.body.email); // get user by email
+  if (user && (await bcrypt.compare(req.body.password, user.password))) { // check that user w/ email exists & that password was correct
+    // SUCCESS:
+    setAuthCookie(res, user);
+
+    res.send({ email: user.email });
+  } else {
+    // FAILURE: email doesn't exist, or password incorrect.
+    res.status(401).send({ msg: 'Unauthorized' });
+  }
 });
 
 // logout
