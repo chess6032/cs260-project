@@ -34,8 +34,8 @@ export function Button( /*{isUserBanned}*/ ) {
 
   async function userPressesButton() {
     console.log('USER PRESSED BUTTON!!!');
-    let response = await fetch('/api/banme');
-    console.log(JSON.stringify(response));
+    let response = await fetch('/api/banme', {method: 'PUT'} );
+    console.log('banme response:\n', await response.text());
     navigate("/");
   }
 

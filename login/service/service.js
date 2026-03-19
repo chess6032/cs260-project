@@ -140,6 +140,7 @@ apiRouter.put('/banme', async (req, res) => {
   console.log('banme endpoint called');
   const user = await getUser(AUTH_FIELD_NAME, req.cookies[AUTH_COOKIE_NAME]);
   if (user) {
+    console.log('banme: user found');
     if (user.banned) {
       res.send({ msg: `lol you're already banned but OK`});
     } else {
