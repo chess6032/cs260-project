@@ -8,7 +8,7 @@ export function Profile({ localUser, setLocalUser }) {
   const navigate = useNavigate();
 
   async function logoutUser() {
-    setLocalUser(null);
+      setLocalUser(null);
     console.log(`logged out ${localUser}`);
     await fetch('/api/auth/logout');
     navigate('/'); // navigate to home page (login)
@@ -21,11 +21,8 @@ export function Profile({ localUser, setLocalUser }) {
         </div>
         : 
         <div className="profile">
-          <span>USER: {localUser}</span>
+          <span>{localUser}</span>
           <span className='ckh-vert-separator'></span>
-          <span>
-            STATUS: {localStorage.getItem(localStorage.getItem(LOCAL_USER_KEY)) == STATUS_GOOD ? "GOOD" : "BANNED"}&nbsp;
-          </span>
           <button className="ckh-btn btn-thin" onClick={logoutUser}>log out</button>
         </div>
         ;
