@@ -12,6 +12,7 @@ export function Login({ setLocalUser }) {
     try {
       user = localStorage.getItem(LOCAL_USER_KEY);
     } catch (ReferenceError) {
+      console.log('no local user saved yet :(');
       // do nothing actually lol
     }
     if (user) {
