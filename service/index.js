@@ -183,20 +183,11 @@ apiRouter.get('/users', async (_req, res) => {
 
 // calls the kanye.rest API while filtering out NSFW responses
 apiRouter.get('/quote', async (req, res) => {
-  console.log('yahooo');
-
   const response = await fetch('https://api.kanye.rest');
-  console.log('Kanye.rest API called');
-
   const data = await response.json();
-  console.log('converted kanye.rest response to JSON');
-
   const kanyeQuote = data.quote;
-  console.log('retrieved unfiltered quote:', kanyeQuote);
-
   const cleanQuote = filter(kanyeQuote);
-  console.log('filtered quote:', cleanQuote);
-
+  console.log(`original: ${kanyeQuote}`);
   res.json({quote: cleanQuote, original: kanyeQuote});
 });
 

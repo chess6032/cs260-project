@@ -7,19 +7,12 @@ import { LOCAL_USER_KEY, STATUS_GOOD } from '../constants';
 // react pt. 2: added placeholder JS for 3rd-party service calls. (See Simon React Pt. 2 --> About component)
 
 export function Banned({ localUser }) {
-  if (!localUser) {
-    console.log('sending you back to where you came from---NERD');
-    return <Navigate to='/' replace />
-  }
-
   // PLACEHOLDER FOR 3RD-PARTY SERVICE CALLS
   const [quote, setQuote] = React.useState("Loading something wise...");
 
   React.useEffect(() => {
     async function populateQuote() {
-      console.log('yippeee');
       const response = await fetch('/api/quote');
-      console.log('woooahahaahhhhh');
       const data = await response.json();
       const quote = data.quote;
       console.log(quote);
@@ -27,6 +20,11 @@ export function Banned({ localUser }) {
     }
     populateQuote();
   }, []); // by passing in an empty subarray for the dependencies, this useEffect callback will only be called the first time the Banned component renders.
+
+  if (!localUser) {
+    console.log('sending you back to where you came from---NERD');
+    return <Navigate to='/' replace />
+  }
 
   return (
     <main className="banned-main">
