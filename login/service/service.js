@@ -12,7 +12,8 @@ const app = express();
 
 const bcrypt = require('bcryptjs');
 
-const users = []; 
+const users = [];
+// ^ this is our dummy DB. it would clear whenever we restart our server tho. 
 
 async function createUser(email, password) {
   const passwordHash = await bcrypt.hash(password, 10);
@@ -98,7 +99,7 @@ app.put('/api/auth', async (req, res) => {
 app.delete('/api/auth', async (req, res) => {
   const token = req.cookies['token'];
   const user = await getUser('token', token);
-  if (user) { // check if user w/ token exists
+  if (user) { // check if there exists a user authenticated w/ token
     clearAuthCookie(res, user);
   }
 
@@ -108,8 +109,16 @@ app.delete('/api/auth', async (req, res) => {
 });
 
 // getMe
-app.get('/api/user', async (req, res) => {
-  res.send({ email: 'marta@id.com' });
+app.get('/api/user/me', async (req, res) => {
+  const token = req.cookies['token'];
+  const user = await getUser('token', token);
+  if (user) { // check if there exists a user authenticated w/ token
+    // SUCCESS:
+    res.send({ email: user.email });
+  } else {
+    // FAILURE: no user w/ token exists
+    res.status(401).send({ msg: 'Unauthorized' });
+  }
 });
 
 const port = 3000;
