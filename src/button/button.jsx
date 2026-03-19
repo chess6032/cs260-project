@@ -20,7 +20,7 @@ export function Button( {isUserBanned} ) {
         return;
       }
       const isBanned = await isUserBanned();
-      console.log(isBanned);
+      console.log('banned?', isBanned);
       if (isBanned) {
         navigate('/banned');
       } else {
