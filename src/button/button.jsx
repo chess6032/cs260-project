@@ -13,6 +13,7 @@ export function Button( {isUserBanned} ) {
   React.useEffect(() => {
     async function checkBanStatus() {
       let user = localStorage.getItem(LOCAL_USER_KEY || null);
+      console.log(typeof(user));
       if (!user) {
         // user not logged in 
         navigate('/'); // send to login page

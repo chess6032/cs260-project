@@ -37,7 +37,7 @@ export default function App() {
                 <div id="brand">Don't press the button</div>
               </nav>
               <div style={{textAlign: "right"}}>
-                <Profile localUser={localUser} setLocalUser={setLocalUserInStorageAndState}/>
+                <Profile localUser={localUser} setLocalUser={setLocalUser}/>
               </div>
             </header>
   
