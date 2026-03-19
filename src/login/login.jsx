@@ -24,7 +24,7 @@ export function Login({ localUser, setLocalUser }) {
     setPasswordText(e.target.value);
   }
 
-  async function loginOrCreate(endpoint) {
+  async function loginOrCreate(endpoint, errorMessage) {
     const response = await fetch(endpoint, {
       method: 'post',
       body: JSON.stringify({ email: emailText, password: passwordText }),
@@ -32,16 +32,18 @@ export function Login({ localUser, setLocalUser }) {
         'Content-Type': 'application/json; charset=UTF-8',
       },
     });
-    if (response?.status === 200) {
+    if (response?.ok) {
       setLocalUser(emailText);
+    } else {
+      alert(errorMessage);
     }
   }
 
-  async function authenticateUser(endpoint) {
+  async function authenticateUser(endpoint, errorMessage) {
     if (emailText === '' || passwordText === '') {
       return;
     }
-    await loginOrCreate(endpoint, emailText, passwordText); 
+    await loginOrCreate(endpoint, errorMessage); 
     console.log(`authenticated ${emailText}`);
     navigate('/');
   }
@@ -61,8 +63,8 @@ export function Login({ localUser, setLocalUser }) {
         </div>
 
         <div id="login-buttons">
-          <button className="ckh-btn" onClick={() => authenticateUser('/api/auth/login')}>Login</button>
-          <button className="ckh-btn" onClick={() => authenticateUser('/api/auth/register')}>Register</button>
+          <button className="ckh-btn" onClick={() => authenticateUser('/api/auth/login', 'email or password incorrect')}>Login</button>
+          <button className="ckh-btn" onClick={() => authenticateUser('/api/auth/register', 'email taken')}>Register</button>
         </div>
       </div>
     </main>
