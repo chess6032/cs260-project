@@ -9,7 +9,7 @@ const uuid = require('uuid');
 const cookieParser = require('cookie-parser');
 let apiRouter = express.Router();
 
-const { filter } = require('./filter');
+// const { filter } = require('./filter');
 
 const STATIC_ROOT_PATH = 'public'
 
@@ -92,6 +92,32 @@ const verifyAuth = async (req, res, next) => {
   }
 }
 
+// FILTERING OUT KANYE QUOTES
+
+const FOUL_WORDS_PATH = 'service/foul-language.json'
+const censor = () => `(Kanye had something to say, but it wasn't school appropriate.)`;
+const foulWords = [
+    "f#%k",
+    "fuck",
+    "sex",
+    "shit",
+    "porn",
+    "Trump",
+    "woke",
+    "damn",
+    "hell",
+    "ass",
+    "cock",
+    "dick"
+]
+
+function filter(quote) {
+    const hasFoul = foulWords.some(word => {
+        const regex = new RegExp(`\\b${word}\\b`, 'i'); // 'i' makes it case insensitive
+        return regex.test(quote);
+    });
+    return hasFoul ? censor() : quote;
+}
 
 // ~~~~~~~~~~~~~~~ ENDPOINTS ~~~~~~~~~~~~~~~
 
