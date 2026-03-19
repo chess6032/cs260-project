@@ -7,15 +7,22 @@ const app = express();
 const bcrypt = require('bcryptjs');
 const uuid = require('uuid');
 const cookieParser = require('cookie-parser');
+let apiRouter = express.Router();
+
+// middleware: 
+app.use(express.json()); // parse request's JSON body
+app.use(cookieParser()); // cookies! (from cookie-parser package I believe)
+app.use(express.static('public')); // serves up static front-end content. NOTE: the deploy script moves all your static files to public/
+app.use('/api', apiRouter); // to distinguish endpoint APIs to frontend files. (endpoint paths begin w/ '/api')
 
 const AUTH_COOKIE_NAME = 'token'
 const AUTH_FIELD_NAME = 'token'
+
 
 let usersDB = [];
 // ^ this is our dummy DB. it would clear whenever we restart our server tho. 
 // TODO: replace w/ query shih
 
-// let apiRouter = express.Router(); // FIXME: apparently I don't need ts?
 
 // ~~~~~~~~~~~~~~~ HELPER FUNCTIONS ~~~~~~~~~~~~~~~
 
@@ -76,16 +83,8 @@ const verifyNotBanned = async (req, res, next) => {
 
 // ~~~~~~~~~~~~~~~ ENDPOINTS ~~~~~~~~~~~~~~~
 
-// middleware: 
-app.use(express.json()); // parse request's JSON body
-app.use(cookieParser()); // cookies! (from cookie-parser package I believe)
-// app.use('/api', apiRouter); // to distinguish endpoint APIs to frontend files. (endpoint paths begin w/ '/api')
-// FIXME: apparently I don't need ts?
-
-app.use(express.static('public')); // serves up static front-end content
-
 // registration
-app.post('/api/register', async (req, res) => {
+apiRouter.post('/auth/register', async (req, res) => {
   console.log('body:', req.body);
   console.log('content-type:', req.headers['content-type']);
   if (await getUser('email', req.body.email)) {
@@ -102,7 +101,7 @@ app.post('/api/register', async (req, res) => {
 });
 
 // login
-app.post('/api/login', async (req, res) => {
+apiRouter.post('/auth/login', async (req, res) => {
   const user = await getUser('email', req.body.email); // get user by email
   if (user && (await bcrypt.compare(req.body.password, user.password))) { // check that user w/ email exists & that password was correct
     // SUCCESS:
@@ -116,7 +115,7 @@ app.post('/api/login', async (req, res) => {
 });
 
 // logout
-app.delete('/api/logout', async (req, res) => {
+apiRouter.delete('/auth/logout', async (req, res) => {
   const token = req.cookies[AUTH_COOKIE_NAME];
   const user = await getUser(AUTH_FIELD_NAME, token);
   if (user) { // check if there exists a user authenticated w/ token
@@ -130,7 +129,7 @@ app.delete('/api/logout', async (req, res) => {
 
 // ban user
 // TODO: uhhh is it wise to expose this as a service endpoint?
-app.put('/api/banme', async (req, res) => {
+apiRouter.put('/banme', async (req, res) => {
   const user = await getUser(AUTH_FIELD_NAME, req.cookies[AUTH_COOKIE_NAME]);
   if (user) {
     if (user.banned) {
