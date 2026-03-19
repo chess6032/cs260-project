@@ -17,7 +17,7 @@ export function Banned({ localUser }) {
 
   React.useEffect(() => {
     async function populateQuote() {
-      const response = await fetch('https://api.kanye.rest');
+      const response = await fetch('/api/quote');
       const data = await response.json();
       const quote = data.quote;
       console.log(quote);

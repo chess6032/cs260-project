@@ -179,6 +179,11 @@ apiRouter.get('/users', async (_req, res) => {
   res.send({ msg: usersDB.map((user) => {return {email: user.email, banned: user.banned}}) });
 })
 
+apiRouter.get('/quote', async (req, res) => {
+  const externalApiCall = await fetch('https://api.kanye.rest');
+  res.send(await externalApiCall.json());
+});
+
 // default error handler
 app.use(function (err, req, res, next) {
   res.status(500).send({ type: err.name, message: err.message });
