@@ -94,8 +94,6 @@ const verifyAuth = async (req, res, next) => {
 
 // registration
 apiRouter.post('/auth/register', async (req, res) => {
-  console.log('body:', req.body);
-  console.log('content-type:', req.headers['content-type']);
   if (await getUser('email', req.body.email)) {
     // FAIL: user email already exists
     res.status(409).send({ msg: 'Existing user' });
@@ -154,8 +152,10 @@ apiRouter.put('/banme', async (req, res) => {
 
 // check if user is banned
 apiRouter.get('/isbanned', async (req, res) => {
+  console.log('/isbanned API called');
   const user = await getUser(AUTH_FIELD_NAME, req.cookies[AUTH_COOKIE_NAME]);
   if (user) {
+    console.log('is this user banned?', user.banned);
     if (user.banned) {
       res.send({ msg: 'You HAVE pressed the button. (I hate you.)', banned: true });
     } else {
@@ -164,6 +164,7 @@ apiRouter.get('/isbanned', async (req, res) => {
   } else {
     res.status(401).send( {msg: `Unauthorized. (I don't even know who you are.)` });
   }
+  console.log('/isbanned API finished');
 });
 
 // default error handler

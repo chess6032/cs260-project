@@ -3,7 +3,7 @@ import 'bootstrap/dist/css/bootstrap.min.css'; // for CSS Bootstrap
 import './app.css';
 
 // ROUTER STUFF
-import { BrowserRouter, NavLink, Route, Routes } from 'react-router-dom';
+import { BrowserRouter, Route, Routes, Navigate } from 'react-router-dom';
 import { Login } from './login/login';
 import { Button } from './button/button';
 import { Banned } from './banned/banned';
@@ -21,11 +21,28 @@ export default function App() {
       localStorage.setItem(LOCAL_USER_KEY, user);
     }
 
-    async function isUserBanned() {
-      const response = await fetch('/api/isbanned');
-      if (!response.ok) return true;
-      const data = await response.json();
-      return data?.banned;
+    function AuthGate({ localUser }) {
+        const [banStatus, setBanStatus] = React.useState('loading'); // 'loading' | 'banned' | 'ok'
+    
+        React.useEffect(() => {
+            if (!localUser) return; // no need to check ban status if user isn't even logged in.
+            async function checkBanStatus() {
+                try {
+                    const response = await fetch('/api/isbanned');
+                    const data = response.ok ? await response.json() : { banned: true };
+                    setBanStatus(data?.banned ? 'banned' : 'ok');
+                } catch {
+                    setBanStatus('banned');
+                }
+            }
+            checkBanStatus();
+    
+        }, [localUser]);
+    
+        if (!localUser) return <Navigate to="/login" replace />;
+        if (banStatus === 'loading') return <main>Loading...</main>; // while waiting for fetch API call
+        if (banStatus === 'banned') return <Navigate to='/banned' replace />;
+        return <Navigate to='/button' replace />; // banStatus === 'ok'
     }
 
     return (
@@ -43,9 +60,10 @@ export default function App() {
   
             {/* <main> tag is provided by the components the Router uses */}
             <Routes>
-              <Route path='/' element={<Login setLocalUser={setLocalUserInStorageAndState} />} exact /> {/* "exact" isn't needed for "/" paths anymore as of React V6...but the instructions had this here so I'll keep it ig*/}
-              <Route path='/button' element={<Button isUserBanned={isUserBanned}/>}/>
-              <Route path='/banned' element={<Banned isUserBanned={isUserBanned}/>}/>
+              <Route path='login' element={<Login setLocalUser={setLocalUserInStorageAndState} />} exact /> {/* "exact" isn't needed for "/" paths anymore as of React V6...but the instructions had this here so I'll keep it ig*/}
+              <Route path='button' element={<Button />}/>
+              <Route path='banned' element={<Banned />}/>
+              <Route path='/' element={<AuthGate localUser={localUser}/>}/>
               <Route path='*' element={<NotFound />}/> {/* catches any other address so that we can give a 404 not found error. */}
             </Routes>
   
