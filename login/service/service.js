@@ -6,9 +6,13 @@ const app = express();
 
 // ~~~~~~~~~~~~~~~ HELPER FUNCTIONS & STUFF ~~~~~~~~~~~~~~~
 
+
+// PASSWORD HASHING & USER STORAGE (bycryptjs)
+// TODO: replace w/ query shih
+
 const bcrypt = require('bcryptjs');
 
-const users = [];
+const users = []; 
 
 async function createUser(email, password) {
   const passwordHash = await bcrypt.hash(password, 10);
@@ -30,19 +34,43 @@ function getUser(field, value) {
   return null;
 }
 
+// GENERATING TOKENS (uuid)
+
+const uuid = require('uuid');
+
+// GENERATING COOKIES (cookie-parser)
+
+const cookieParser = require('cookie-parser');
+app.use(cookieParser());
+
+// Create a token for the user and send a cookie containing the token
+function setAuthCookie(res, user) {
+  user.token = uuid.v4();
+
+  res.cookie('token', user.token, {
+    secure: true,
+    httpOnly: true,
+    sameSite: 'strict',
+  });
+}
+
 // ~~~~~~~~~~~~~~~ ENDPOINTS ~~~~~~~~~~~~~~~
 
-// middleware: parse request's JSON body
-app.use(express.json());
+// middleware: 
+app.use(express.json()); // parse request's JSON body
+app.use(cookieParser()); // cookies! (from cookie-parser package I believe)
 
 // registration
 app.post('/api/auth', async (req, res) => {
-  if (await getUser('email', req.body.email)) { // check if user exists
-    // FAIL: email already exists
+  if (await getUser('email', req.body.email)) {
+    // FAIL: user email already exists
     res.status(409).send({ msg: 'Existing user' });
   } else {
-    // SUCCESS: new user
+    // SUCCESS:
     const user = await createUser(req.body.email, req.body.password);
+
+    setAuthCookie(res, user);
+
     res.send({ email: user.email });
   }
 });
