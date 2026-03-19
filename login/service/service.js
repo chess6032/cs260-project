@@ -144,6 +144,20 @@ apiRouter.put('/banme', async (req, res) => {
   }
 });
 
+// check if user is banned
+apiRouter.get('/isbanned', async (req, res) => {
+  const user = await getUser(AUTH_FIELD_NAME, req.cookies[AUTH_COOKIE_NAME]);
+  if (user) {
+    if (user.banned) {
+      res.send({ msg: 'You HAVE pressed the button. (I hate you.)', banned: true });
+    } else {
+      res.send({ msg: 'You have NOT pressed the button. (I love you.)', banned: false });
+    }
+  } else {
+    res.status(401).send( {msg: `Unauthorized. (I don't even know who you are.)` });
+  }
+});
+
 // default error handler
 app.use(function (err, req, res, next) {
   res.status(500).send({ type: err.name, message: err.message });

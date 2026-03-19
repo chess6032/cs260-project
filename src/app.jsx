@@ -21,6 +21,13 @@ export default function App() {
       localStorage.setItem(LOCAL_USER_KEY, user);
     }
 
+    async function isUserBanned() {
+      const response = await fetch('/api/isbanned');
+      if (!response.ok) return true;
+      const data = await response.json();
+      return data?.banned;
+    }
+
     return (
         <BrowserRouter>
           <div className="pagebody bg-dark text-light"> {/*Serves same purpose as <body> did before*/}
@@ -37,8 +44,8 @@ export default function App() {
             {/* <main> tag is provided by the components the Router uses */}
             <Routes>
               <Route path='/' element={<Login setLocalUser={setLocalUserInStorageAndState} />} exact /> {/* "exact" isn't needed for "/" paths anymore as of React V6...but the instructions had this here so I'll keep it ig*/}
-              <Route path='/button' element={<Button />}/>
-              <Route path='/banned' element={<Banned />}/>
+              <Route path='/button' element={<Button isUserBanned={isUserBanned}/>}/>
+              <Route path='/banned' element={<Banned isUserBanned={isUserBanned}/>}/>
               <Route path='*' element={<NotFound />}/> {/* catches any other address so that we can give a 404 not found error. */}
             </Routes>
   
