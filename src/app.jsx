@@ -13,13 +13,6 @@ import { LOCAL_USER_KEY } from "./constants.js";
 
 export default function App() {
     const [localUser, setLocalUser] = React.useState(localStorage.getItem(LOCAL_USER_KEY) || null); // represents if the user 
-    // TODO: I abuse local storage a lot. Is there a way to refactor my code so that 
-    // the current user is just passed around as a variable to the different pages?
-
-    function setLocalUserInStorageAndState(user) {
-      setLocalUser(user);
-      localStorage.setItem(LOCAL_USER_KEY, user);
-    }
 
     function AuthGate({ localUser }) {
         const [authStatus, setAuthStatus] = React.useState('loading'); // 'loading' | 'banned' | 'ok'
@@ -46,8 +39,6 @@ export default function App() {
 
               if (unauthorized) {
                 console.log('jeepers');
-                await localStorage.removeItem(LOCAL_USER_KEY); // works
-                // await localStorage.setItem(LOCAL_USER_KEY, null); // doesn't work
                 setLocalUser(null);
               }
             }
@@ -71,16 +62,16 @@ export default function App() {
                 <div id="brand">Don't press the button</div>
               </nav>
               <div style={{textAlign: "right"}}>
-                <Profile localUser={localUser} setLocalUser={setLocalUser}/>
+                <Profile localUser={localUser} setLocalUser={(user) => { setLocalUser(user); localStorage.removeItem(LOCAL_USER_KEY); }}/>
               </div>
             </header>
   
             {/* <main> tag is provided by the components the Router uses */}
             <Routes>
-              <Route path='login' element={<Login setLocalUser={setLocalUserInStorageAndState} />} exact /> {/* "exact" isn't needed for "/" paths anymore as of React V6...but the instructions had this here so I'll keep it ig*/}
+              <Route path='login' element={<Login setLocalUser={(user) => { setLocalUser(user); localStorage.setItem(LOCAL_USER_KEY, user); }} />} exact /> {/* "exact" isn't needed for "/" paths anymore as of React V6...but the instructions had this here so I'll keep it ig*/}
               <Route path='button' element={<Button />}/>
               <Route path='banned' element={<Banned />}/>
-              <Route path='/' element={<AuthGate localUser={localUser} setLocalUserInGate={setLocalUserInStorageAndState}/>}/>
+              <Route path='/' element={<AuthGate localUser={localUser} />}/>
               <Route path='*' element={<NotFound />}/> {/* catches any other address so that we can give a 404 not found error. */}
             </Routes>
   

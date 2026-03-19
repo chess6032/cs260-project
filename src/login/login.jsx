@@ -4,21 +4,14 @@ import './login.css';
 import { useNavigate } from 'react-router-dom';
 import { LOCAL_USER_KEY } from '../constants';
 
-export function Login({ setLocalUser }) {
+export function Login({ localUser, setLocalUser }) {
   const navigate = useNavigate();
 
   React.useEffect(() => {
-    let user = null;
-    try {
-      user = localStorage.getItem(LOCAL_USER_KEY);
-    } catch (ReferenceError) {
-      console.log('no local user saved yet :(');
-      // do nothing actually lol
-    }
-    if (user) {
+    if (localUser) {
       navigate('/button');
     }
-  }, []);
+  }, [localUser]);
 
   const [emailText, setEmailText] = React.useState('');
   const [passwordText, setPasswordText] = React.useState('');
