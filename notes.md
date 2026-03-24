@@ -734,4 +734,9 @@ root.render(<Clicker />);
 
 ## React Part 2: Reactivity
 
-I hear this part is balls. Wish me luck for when I get to this point.
+Trolled this part wasn't too bad because my project was so small.
+
+## Service
+
+For local testing, don't use the VS Live Server extension anymore. Instead, in addition to running `npm run dev`, run `node --watch service/index.js` to start the web server. You will have to have two terminals open for this.
+

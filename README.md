@@ -104,16 +104,17 @@ For this deliverable I did the following. I checked the box `[x]` and added a de
   - I mocked out database persistency by using local storage to save when usernames are banned, so you can't go back to the button when signed in as a banned user.
 - [X] **Hooks** - I used `useState()` and `useEffect()` hooks extensively to implement reactivity.
 
-<!-- ## 🚀 Service deliverable
+## 🚀 Service deliverable
 
 For this deliverable I did the following. I checked the box `[x]` and added a description for things I completed.
 
-- [ ] **Node.js/Express HTTP service** - I did not complete this part of the deliverable.
-- [ ] **Static middleware for frontend** - I did not complete this part of the deliverable.
-- [ ] **Calls to third party endpoints** - I did not complete this part of the deliverable.
-- [ ] **Backend service endpoints** - I did not complete this part of the deliverable.
-- [ ] **Frontend calls service endpoints** - I did not complete this part of the deliverable.
-- [ ] **Supports registration, login, logout, and restricted endpoint** - I did not complete this part of the deliverable. -->
+- [X] **Node.js/Express HTTP service**: Web server running on Port 4000, written in Node.js w/ the express package. Yay!
+- [X] **Static middleware for frontend**: My web server uses `express.static()` to serve static files up from the `public/` directory, which the deploy script moves static content to. (Or something like that idrk tbh the GitHub instructions kinda skimmed over that part.)
+- [X] **Calls to third party endpoints**: The banned page makes a fetch to the [Kanye.rest](kanye.rest) API to get a Kanye West quote.
+  - (I made a function that uses regex to filter out quotes w/ inappropriate language.) 
+- [X] **Backend service endpoints**: Placeholders for login/registration and logout endpoints. (Currently, user data is stored in an array in `index.js`, so it's not persistent yet.) Also added a banme endpoint to change a user's status to banned, which the browser calls when the (despicable) user pushes the button.
+- [X] **Frontend calls service endpoints**: `login.jsx` makes calls to the login and registration endpoints, and `app.jsx`'s AuthGate component uses the isbanned endpoint to serve up the button or banned page when a user is logged in. 
+- [X] **Supports registration, login, logout, and restricted endpoint**: Placeholders for login/registration/logout endpoints that don't interact w/ a database yet. The banme and isbanned endpoints both require a valid auth token be present in the cookies (and in the server).
 
 <!-- ## 🚀 DB deliverable
 
