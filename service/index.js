@@ -69,27 +69,6 @@ function clearAuthCookie(res, user) {
   res.clearCookie(AUTH_COOKIE_NAME);
 }
 
-// DEALING W/ BANNING THE USER & STUFF
-
-// TODO: does it even make sense for my project to use middleware for ts?
-const verifyNotBanned = async (req, res, next) => {
-  const user = await getUser(AUTH_FIELD_NAME, req.cookies[AUTH_COOKIE_NAME]);
-  if (user && !user.banned) {
-    next();
-  } else {
-    res.status(401).send({ msg: `Unauthorized (YOU PRESSED THE BUTTON, FOOL!)` });
-  }
-}
-
-const verifyAuth = async (req, res, next) => {
-  const user = await getUser(AUTH_FIELD_NAME, req.cookies[AUTH_COOKIE_NAME]);
-  if (user) {
-    next();
-  } else {
-    res.status(401).send({ msg: `Unauthorized.`} );
-  }
-}
-
 // FILTERING OUT KANYE QUOTES
 
 const censor = () => `(Kanye had something to say, but it wasn't school appropriate.)`;
@@ -184,11 +163,6 @@ apiRouter.get('/isbanned', async (req, res) => {
   }
   console.log('isbanned endpoint finished\n');
 });
-
-// TODO: get rid of this for prod
-apiRouter.get('/users', async (_req, res) => {
-  res.send({ msg: usersDB.map((user) => {return {email: user.email, banned: user.banned}}) });
-})
 
 // calls the kanye.rest API while filtering out NSFW responses
 apiRouter.get('/quote', async (req, res) => {
