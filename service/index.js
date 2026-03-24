@@ -96,20 +96,6 @@ const verifyAuth = async (req, res, next) => {
 
 const FOUL_WORDS_PATH = 'service/foul-language.json'
 const censor = () => `(Kanye had something to say, but it wasn't school appropriate.)`;
-const foulWords = [
-    "f#%k",
-    "fuck",
-    "sex",
-    "shit",
-    "porn",
-    "Trump",
-    "woke",
-    "damn",
-    "hell",
-    "ass",
-    "cock",
-    "dick"
-]
 
 function filter(quote) {
     const hasFoul = foulWords.some(word => {
@@ -232,3 +218,106 @@ const port = process.env.VITE_PROXY_PORT || 4000;
 app.listen(port, function () {
   console.log(`Listening on port ${port}`);
 });
+
+// WARN: BELOW IS A LIST OF SWEAR WORDS THAT 
+// filter() USES TO IDENTIFY INAPPROPRIATE KANYE QUOTES.
+
+
+
+
+
+
+
+
+
+
+
+
+
+// read warning above
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+// read warning above
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+// read warning above
+
+
+
+
+
+
+
+
+
+
+
+// read warning above
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+// I'm so sorry.
+// (I tried endlessly to get it to load from a separate file, but between the
+// asynchronization and my inexperience w/ JS, I couldn't get it to work.)
+
+const foulWords = [
+    "f#%k",
+    "fuck",
+    "sex",
+    "shit",
+    "porn",
+    "Trump",
+    "woke",
+    "damn",
+    "hell",
+    "ass",
+    "cock",
+    "dick"
+]
