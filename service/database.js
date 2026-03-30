@@ -17,7 +17,7 @@ const bcrypt = require('bcryptjs');
         await db.command({ ping: 1 });
         console.log(`Connected to ${config.hostname}`);
     } catch (e) {
-        console.log(`Failed to connect to ${config.hostname}: ${e.message}`);
+        console.error(`Failed to connect to ${config.hostname}: ${e.message}`);
         process.exit(1);
     }
 })();
@@ -34,7 +34,7 @@ async function addUser(email, password) {
     try {
         await users.insertOne(user);
     } catch (e) {
-        console.log(`Failed to add user (${email}): ${e.message}`);
+        console.error(`Failed to add user (${email}): ${e.message}`);
         return undefined;
     }
 
@@ -45,7 +45,7 @@ async function getUserByEmail(email) {
     try {
         return await users.findOne({ email: email });
     } catch (e) {
-        console.log(`Failed to query for user (${email}):\n${e.message}`);
+        console.error(`Failed to query for user (${email}):\n${e.message}`);
         return undefined;
     }
 }
@@ -55,7 +55,7 @@ async function getAuthsOfUser(email) {
     try {
         cursor = auths.find({ email: email });
     } catch (e) {
-        console.log(`Failed to query auth for user (${email}):\n${e.message}`);
+        console.error(`Failed to query auth for user (${email}):\n${e.message}`);
         return undefined;
     }
     return await cursor.toArray();
@@ -65,7 +65,7 @@ async function getUserOfAuth(auth) {
     try {
         return await auths.findOne({ auth: auth });
     } catch (e) {
-        console.log(`Failed to query user of auth (${auth}):\n${e.message}`);
+        console.error(`Failed to query user of auth (${auth}):\n${e.message}`);
         return undefined;
     }
 }
@@ -75,7 +75,7 @@ async function createAuth(email) {
     try {
         await auths.insertOne({ email: email, auth: auth, timestamp: new Date.toISOString() });
     } catch (e) {
-        console.log(`Failed to create auth for user (${email}):\n${e.message}`);
+        console.error(`Failed to create auth for user (${email}):\n${e.message}`);
         return undefined;
     }
     return auth;
@@ -85,7 +85,7 @@ async function deleteAuth(auth) {
     try {
         return await auths.deleteOne({ auth: auth });
     } catch (e) {
-        console.log(`Failed to delete auth (${auth}):\n${e.message}`);
+        console.error(`Failed to delete auth (${auth}):\n${e.message}`);
         return undefined;
     }
 }
@@ -94,7 +94,7 @@ async function banUserWithEmail(email) {
     try {
         return await users.updateOne({ email: email }, { $set: { banned: true }});
     } catch (e) {
-        console.log(`Failed to ban user (${email}):\n${e.message}`);
+        console.error(`Failed to ban user (${email}):\n${e.message}`);
         return undefined;
     }
 }

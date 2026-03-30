@@ -78,10 +78,12 @@ apiRouter.post('/auth/register', async (req, res) => {
     res.status(409).send({ msg: 'Existing user' });
   } else {
     // SUCCESS:
-    const user = await createUser(req.body.email, req.body.password);
-
-    if (!await setAuthCookie(res, user.email)) {
-      res.status(500).send({ msg: 'DB failure' });
+    const user = await dbAddUser(req.body.email, req.body.password);
+    if (user === undefined) {
+      res.status(500).send({ msg: 'DB failure: inserting user' });
+    }
+    else if (! await setAuthCookie(res, user.email)) {
+      res.status(500).send({ msg: 'DB failure: inserting auth' });
     } else {
       res.send({ email: user.email });
     }
