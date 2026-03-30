@@ -73,7 +73,7 @@ async function getUserOfAuth(auth) {
 async function createAuth(email) {
     const auth = uuid.v4();
     try {
-        await auths.insertOne({ email: email, auth: auth });
+        await auths.insertOne({ email: email, auth: auth, timestamp: new Date.toISOString() });
     } catch (e) {
         console.log(`Failed to create auth for user (${email}):\n${e.message}`);
         return undefined;
@@ -83,22 +83,20 @@ async function createAuth(email) {
 
 async function deleteAuth(auth) {
     try {
-        await auths.deleteOne({ auth: auth });
+        return await auths.deleteOne({ auth: auth });
     } catch (e) {
         console.log(`Failed to delete auth (${auth}):\n${e.message}`);
         return undefined;
     }
-    return true;
 }
 
 async function banUserWithEmail(email) {
     try {
-        await users.updateOne({ email: email }, { $set: { banned: true }});
+        return await users.updateOne({ email: email }, { $set: { banned: true }});
     } catch (e) {
         console.log(`Failed to ban user (${email}):\n${e.message}`);
         return undefined;
     }
-    return true;
 }
 
 module.exports = {
