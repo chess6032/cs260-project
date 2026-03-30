@@ -8,6 +8,7 @@ const users = db.collection('users');
 const auths = db.collection('auths');
 
 const uuid = require('uuid');
+const bcrypt = require('bcryptjs');
 
 // This will asynchronously test the connection
 // and exit the process if it fails.
