@@ -5,6 +5,9 @@ const url = `mongodb+srv://${config.username}:${config.password}@${config.hostna
 const client = new MongoClient(url);
 const db = client.db('startup');
 const users = db.collection('users');
+const auths = db.collection('auths');
+
+const uuid = require('uuid');
 
 // This will asynchronously test the connection
 // and exit the process if it fails.
@@ -18,7 +21,7 @@ const users = db.collection('users');
     }
 })();
 
-async function addUserToDB(email, password) {
+async function addUser(email, password) {
     const passwordHash = await bcrypt.hash(password, 10);
 
     const user = {
@@ -32,6 +35,39 @@ async function addUserToDB(email, password) {
     return user;
 }
 
+async function getUserByEmail(email) {
+    return await users.findOne({ email: email });
+}
+
+async function userWithEmailExists(email) {
+    return await getUserByEmail(email) ? true : false;
+}
+
+async function getAuthsOfUser(email) {
+    const cursor = auths.find({ email: email });
+    return await cursor.toArray();
+}
+
+async function getUserOfAuth(auth) {
+    return await auths.findOne({ auth: auth });
+}
+
+async function createAuth(email) {
+    const auth = uuid.v4();
+    await auths.insertOne({ email: email, auth: auth });
+    return auth;
+}
+
+async function deleteAuth(auth) {
+    await auths.deleteOne({ auth: auth });
+}
+
 module.exports = {
-    addUserToDB
+    addUser,
+    getUserByEmail,
+    userWithEmailExists,
+    getAuthsOfUser,
+    getUserOfAuth,
+    createAuth,
+    deleteAuth,
 }
