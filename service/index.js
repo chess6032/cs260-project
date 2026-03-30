@@ -9,7 +9,17 @@ const uuid = require('uuid');
 const cookieParser = require('cookie-parser');
 let apiRouter = express.Router();
 
-const { addUserToDB } = require('./database');
+const { 
+  addUser:dbAddUser, 
+  getUserByEmail:dbGetUser,
+  userWithEmailExists:dbEmailExists,
+  getAuthsOfUser:dbGetAuths,
+  getUserOfAuth:dbGetUserOfAuth,
+  createAuth:dbCreateAuth,
+  deleteAuth:dbDeleteAuth,
+  banUserWithEmail:dbBanUser,
+} = require('./database');
+const { AUTH_COOKIE_NAME, AUTH_FIELD_NAME } = require('constants');
 
 const STATIC_ROOT_PATH = 'public'
 
@@ -19,45 +29,28 @@ app.use(cookieParser()); // cookies! (from cookie-parser package I believe)
 app.use(express.static(STATIC_ROOT_PATH)); // serves up static front-end content. NOTE: the deploy script moves all your static files to public/
 app.use('/api', apiRouter); // to distinguish endpoint APIs to frontend files. (endpoint paths begin w/ '/api')
 
-const AUTH_COOKIE_NAME = 'token'
-const AUTH_FIELD_NAME = 'token'
-
-
-let usersDB = [];
-// ^ this is our dummy DB. it would clear whenever we restart our server tho. 
-// TODO: replace w/ query shih
-
-
 // ~~~~~~~~~~~~~~~ HELPER FUNCTIONS ~~~~~~~~~~~~~~~
 
-// PASSWORD HASHING & USER STORAGE (bycryptjs)
-
 async function createUser(email, password) {
-  return await addUserToDB(email, password);
-}
-
-function getUser(field, value) {
-  if (value) {
-    return usersDB.find((user) => user[field] === value);
-  }
-  return null;
+  return await dbAddUser(email, password);
 }
 
 // GENERATING & DELETING COOKIES (cookie-parser)
 
 // Create a token for the user and send a cookie containing the token
-function setAuthCookie(res, user) {
-  user[AUTH_FIELD_NAME] = uuid.v4();
-  
-  res.cookie(AUTH_COOKIE_NAME, user[AUTH_FIELD_NAME], {
+
+async function setAuthCookie(res, email) {
+  const auth = await dbCreateAuth(email);
+
+  res.cookie(AUTH_COOKIE_NAME, auth, {
     secure: false, // TODO: set back to true for prod
     httpOnly: true,
     sameSite: 'strict',
   });
 }
 
-function clearAuthCookie(res, user) {
-  delete user[AUTH_FIELD_NAME];
+async function clearAuthCookie(res) {
+  await dbDeleteAuth(res.cookies[AUTH_COOKIE_NAME]);
   res.clearCookie(AUTH_COOKIE_NAME);
 }
 
@@ -77,14 +70,14 @@ function filter(quote) {
 
 // registration
 apiRouter.post('/auth/register', async (req, res) => {
-  if (await getUser('email', req.body.email)) {
+  if (await dbEmailExists(req.body.email)) {
     // FAIL: user email already exists
     res.status(409).send({ msg: 'Existing user' });
   } else {
     // SUCCESS:
     const user = await createUser(req.body.email, req.body.password);
 
-    setAuthCookie(res, user);
+    await setAuthCookie(res, user.email);
 
     res.send({ email: user.email });
   }
@@ -92,10 +85,10 @@ apiRouter.post('/auth/register', async (req, res) => {
 
 // login
 apiRouter.post('/auth/login', async (req, res) => {
-  const user = await getUser('email', req.body.email); // get user by email
+  const user = await dbGetUser(req.body.email); // get user by email
   if (user && (await bcrypt.compare(req.body.password, user.password))) { // check that user w/ email exists & that password was correct
     // SUCCESS:
-    setAuthCookie(res, user);
+    await setAuthCookie(res, user.email);
 
     res.send({ email: user.email });
   } else {
@@ -107,10 +100,7 @@ apiRouter.post('/auth/login', async (req, res) => {
 // logout
 apiRouter.delete('/auth/logout', async (req, res) => {
   const token = req.cookies[AUTH_COOKIE_NAME];
-  const user = await getUser(AUTH_FIELD_NAME, token);
-  if (user) { // check if there exists a user authenticated w/ token
-    clearAuthCookie(res, user);
-  }
+  await clearAuthCookie(res); // FIXME: I think it's fine to call this without checking if this auth exists in DB
 
   // we don't care if token doesn't exist tho lol
 
@@ -121,13 +111,13 @@ apiRouter.delete('/auth/logout', async (req, res) => {
 // TODO: uhhh is it wise to expose this as a service endpoint?
 apiRouter.put('/banme', async (req, res) => {
   console.log('banme endpoint called');
-  const user = await getUser(AUTH_FIELD_NAME, req.cookies[AUTH_COOKIE_NAME]);
+  const user = await dbGetUserOfAuth(req.cookies[AUTH_COOKIE_NAME]);
   if (user) {
     console.log('banme: user found');
     if (user.banned) {
       res.send({ msg: `lol you're already banned but OK`});
     } else {
-      user.banned = true;
+      await dbBanUser(user.email);
       res.send({ msg: `you have been banned. (I hate you.)`});
     }
   } else {
@@ -139,9 +129,9 @@ apiRouter.put('/banme', async (req, res) => {
 // check if user is banned
 apiRouter.get('/isbanned', async (req, res) => {
   console.log('isbanned endpoint called');
-  const user = await getUser(AUTH_FIELD_NAME, req.cookies[AUTH_COOKIE_NAME]);
+  const user = await dbGetUserOfAuth(req.cookies[AUTH_COOKIE_NAME]);
   if (user) {
-    let {email, banned} = user;
+    const {email, banned} = user;
     console.log(`  user: ${email} (${banned ? 'banned' : 'good'})`);
     // res.contentType('application/json');
     console.log('  is this user banned?', user.banned);
