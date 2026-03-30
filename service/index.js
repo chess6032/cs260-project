@@ -12,7 +12,6 @@ let apiRouter = express.Router();
 const { 
   addUser:dbAddUser, 
   getUserByEmail:dbGetUser,
-  userWithEmailExists:dbEmailExists,
   getAuthsOfUser:dbGetAuths,
   getUserOfAuth:dbGetUserOfAuth,
   createAuth:dbCreateAuth,
@@ -31,27 +30,31 @@ app.use('/api', apiRouter); // to distinguish endpoint APIs to frontend files. (
 
 // ~~~~~~~~~~~~~~~ HELPER FUNCTIONS ~~~~~~~~~~~~~~~
 
-async function createUser(email, password) {
-  return await dbAddUser(email, password);
-}
-
 // GENERATING & DELETING COOKIES (cookie-parser)
 
 // Create a token for the user and send a cookie containing the token
 
 async function setAuthCookie(res, email) {
   const auth = await dbCreateAuth(email);
+  if (auth === undefined) {
+    return false;
+  }
 
   res.cookie(AUTH_COOKIE_NAME, auth, {
     secure: false, // TODO: set back to true for prod
     httpOnly: true,
     sameSite: 'strict',
   });
+
+  return true;
 }
 
 async function clearAuthCookie(res) {
-  await dbDeleteAuth(res.cookies[AUTH_COOKIE_NAME]);
+  if (await dbDeleteAuth(res.cookies[AUTH_COOKIE_NAME]) === undefined) {
+    return false;
+  }
   res.clearCookie(AUTH_COOKIE_NAME);
+  return true;
 }
 
 // FILTERING OUT KANYE QUOTES
@@ -70,16 +73,18 @@ function filter(quote) {
 
 // registration
 apiRouter.post('/auth/register', async (req, res) => {
-  if (await dbEmailExists(req.body.email)) {
+  if (await dbGetUser(req.body.email)) {
     // FAIL: user email already exists
     res.status(409).send({ msg: 'Existing user' });
   } else {
     // SUCCESS:
     const user = await createUser(req.body.email, req.body.password);
 
-    await setAuthCookie(res, user.email);
-
-    res.send({ email: user.email });
+    if (!await setAuthCookie(res, user.email)) {
+      res.status(500).send({ msg: 'DB failure' });
+    } else {
+      res.send({ email: user.email });
+    }
   }
 });
 
@@ -88,9 +93,12 @@ apiRouter.post('/auth/login', async (req, res) => {
   const user = await dbGetUser(req.body.email); // get user by email
   if (user && (await bcrypt.compare(req.body.password, user.password))) { // check that user w/ email exists & that password was correct
     // SUCCESS:
-    await setAuthCookie(res, user.email);
+    if (await setAuthCookie(res, user.email)) {
+      res.send({ email: user.email });
+    } else {
+      res.status(500).send({ msg: 'DB failure' });
+    }
 
-    res.send({ email: user.email });
   } else {
     // FAILURE: email doesn't exist, or password incorrect.
     res.status(401).send({ msg: 'Unauthorized' });
@@ -100,7 +108,9 @@ apiRouter.post('/auth/login', async (req, res) => {
 // logout
 apiRouter.delete('/auth/logout', async (req, res) => {
   const token = req.cookies[AUTH_COOKIE_NAME];
-  await clearAuthCookie(res); // FIXME: I think it's fine to call this without checking if this auth exists in DB
+  await clearAuthCookie(token); 
+  // NOTE: ^ this will log an error to console if it doesn't find 
+  // an auth whose auth is token. But that's OK, we don't care ab that.
 
   // we don't care if token doesn't exist tho lol
 
@@ -112,7 +122,9 @@ apiRouter.delete('/auth/logout', async (req, res) => {
 apiRouter.put('/banme', async (req, res) => {
   console.log('banme endpoint called');
   const user = await dbGetUserOfAuth(req.cookies[AUTH_COOKIE_NAME]);
-  if (user) {
+  if (user === undefined) {
+    res.status(500).send({ msg: 'DB failure' });
+  } else if (user) {
     console.log('banme: user found');
     if (user.banned) {
       res.send({ msg: `lol you're already banned but OK`});
