@@ -62,6 +62,10 @@ async function deleteAuth(auth) {
     await auths.deleteOne({ auth: auth });
 }
 
+async function banUserWithEmail(email) {
+    await users.updateMany({ email: email }, { $set: { banned: true }});
+}
+
 module.exports = {
     addUser,
     getUserByEmail,
@@ -70,4 +74,5 @@ module.exports = {
     getUserOfAuth,
     createAuth,
     deleteAuth,
+    banUserWithEmail,
 }
