@@ -9,6 +9,8 @@ const uuid = require('uuid');
 const cookieParser = require('cookie-parser');
 let apiRouter = express.Router();
 
+const { addUserToDB } = require('./database');
+
 const STATIC_ROOT_PATH = 'public'
 
 // middleware: 
@@ -31,17 +33,7 @@ let usersDB = [];
 // PASSWORD HASHING & USER STORAGE (bycryptjs)
 
 async function createUser(email, password) {
-  const passwordHash = await bcrypt.hash(password, 10);
-
-  const user = {
-    email: email,
-    password: passwordHash,
-    banned: false,
-  };
-
-  usersDB.push(user);
-
-  return user;
+  return await addUserToDB(email, password);
 }
 
 function getUser(field, value) {

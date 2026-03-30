@@ -18,3 +18,20 @@ const users = db.collection('users');
     }
 })();
 
+async function addUserToDB(email, password) {
+    const passwordHash = await bcrypt.hash(password, 10);
+
+    const user = {
+        email: email,
+        password: passwordHash,
+        banned: false,
+    };
+
+    await users.insertOne(user);
+
+    return user;
+}
+
+module.exports = {
+    addUserToDB
+}
