@@ -116,12 +116,14 @@ For this deliverable I did the following. I checked the box `[x]` and added a de
 - [X] **Frontend calls service endpoints**: `login.jsx` makes calls to the login and registration endpoints, and `app.jsx`'s AuthGate component uses the isbanned endpoint to serve up the button or banned page when a user is logged in. 
 - [X] **Supports registration, login, logout, and restricted endpoint**: Placeholders for login/registration/logout endpoints that don't interact w/ a database yet. The banme and isbanned endpoints both require a valid auth token be present in the cookies (and in the server).
 
-<!-- ## 🚀 DB deliverable
+## 🚀 DB deliverable
 
 For this deliverable I did the following. I checked the box `[x]` and added a description for things I completed.
 
-- [ ] **Stores data in MongoDB** - I did not complete this part of the deliverable.
-- [ ] **Stores credentials in MongoDB** - I did not complete this part of the deliverable. -->
+- [X] **Stores data in MongoDB** - Existing users and their status (banned/not banned) is stored in a **users** MongoDB collection. (See `service/database.js`.)
+- [X] **Stores credentials in MongoDB** - Auth tokens associated w/ users are stored in a **auths** MongoDB collection. (See `service/database.js`.)
+  - In addition to user's username and email, each document in the auths collection includes a *timestamp* field. In the future, I can think about automatically deleting auths with old timestamps.
+- Endpoints were rewritten to insert/query/update/delete items from the MongoDB. 
 
 <!-- ## 🚀 WebSocket deliverable
 
