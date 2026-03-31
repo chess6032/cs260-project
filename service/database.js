@@ -63,7 +63,12 @@ async function getAuthsOfUser(email) {
 
 async function getUserOfAuth(auth) {
     try {
-        return await auths.findOne({ auth: auth });
+        const _auth = await auths.findOne({ auth: auth });
+        if (!_auth) {
+            return null;
+        }
+        return await users.findOne({ email: _auth.email });
+        
     } catch (e) {
         console.error(`Failed to query user of auth (${auth}):\n${e.message}`);
         return undefined;
@@ -73,7 +78,7 @@ async function getUserOfAuth(auth) {
 async function createAuth(email) {
     const auth = uuid.v4();
     try {
-        await auths.insertOne({ email: email, auth: auth, timestamp: new Date.toISOString() });
+        await auths.insertOne({ email: email, auth: auth, timestamp: new Date() });
     } catch (e) {
         console.error(`Failed to create auth for user (${email}):\n${e.message}`);
         return undefined;

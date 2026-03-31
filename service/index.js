@@ -54,6 +54,7 @@ async function clearAuthCookie(res) {
     return false;
   }
   res.clearCookie(AUTH_COOKIE_NAME);
+  console.log('logout: cleared cookie');
   return true;
 }
 
@@ -145,6 +146,7 @@ apiRouter.get('/isbanned', async (req, res) => {
   console.log('isbanned endpoint called');
   const user = await dbGetUserOfAuth(req.cookies[AUTH_COOKIE_NAME]);
   if (user) {
+    console.log(user);
     const {email, banned} = user;
     console.log(`  user: ${email} (${banned ? 'banned' : 'good'})`);
     // res.contentType('application/json');
@@ -172,6 +174,8 @@ apiRouter.get('/quote', async (req, res) => {
 
 // default error handler
 app.use(function (err, req, res, next) {
+  console.error(' ---- DEFAULT ERROR ----');
+  console.trace();
   res.status(500).send({ type: err.name, message: err.message });
 });
 
