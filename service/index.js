@@ -49,10 +49,16 @@ async function setAuthCookie(res, email) {
   return true;
 }
 
-async function clearAuthCookie(res) {
-  if (await dbDeleteAuth(res.cookies[AUTH_COOKIE_NAME]) === undefined) {
+async function clearAuthCookie(req, res) {
+  console.log('deleting auth from db');
+  auth = req.cookies[AUTH_COOKIE_NAME];
+  console.log(auth);
+
+  if (await dbDeleteAuth(auth) === undefined) {
+    console.log('did not delete');
     return false;
   }
+  console.log('deleting cookie');
   res.clearCookie(AUTH_COOKIE_NAME);
   console.log('logout: cleared cookie');
   return true;
@@ -110,8 +116,7 @@ apiRouter.post('/auth/login', async (req, res) => {
 
 // logout
 apiRouter.delete('/auth/logout', async (req, res) => {
-  const token = req.cookies[AUTH_COOKIE_NAME];
-  await clearAuthCookie(token); 
+  await clearAuthCookie(req, res); 
   // NOTE: ^ this will log an error to console if it doesn't find 
   // an auth whose auth is token. But that's OK, we don't care ab that.
 
@@ -146,7 +151,6 @@ apiRouter.get('/isbanned', async (req, res) => {
   console.log('isbanned endpoint called');
   const user = await dbGetUserOfAuth(req.cookies[AUTH_COOKIE_NAME]);
   if (user) {
-    console.log(user);
     const {email, banned} = user;
     console.log(`  user: ${email} (${banned ? 'banned' : 'good'})`);
     // res.contentType('application/json');
