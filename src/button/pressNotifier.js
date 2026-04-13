@@ -17,7 +17,7 @@ class PressEventNotifier {
       try {
         const event = JSON.parse(await msg.data.text());
         this.receivePress(event);
-      } catch {} // TODO: why don't we do nothin'?
+      } catch { console.error("oops"); } // TODO: why don't we do nothin'?
     };
   }
 
@@ -33,17 +33,12 @@ class PressEventNotifier {
   }
 
   removeHandler(handler) {
-    this.handlers.filter((h) => h !== handler);
+    this.handlers = this.handlers.filter((h) => h !== handler);
   }
 
   receivePress(event) {
     this.events.push(event);
-
-    this.events.forEach((e) => {
-      this.handlers.forEach((handler) => {
-        handler(e);
-      });
-    });
+    this.handlers.forEach((handler) => handler(event));
   }
 }
 
