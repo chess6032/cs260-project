@@ -55,16 +55,16 @@ export function Login({ localUser, setLocalUser }) {
       <div id="login-form">
 
         <div id="login-input">
-          <span>Email:&nbsp;</span>
-          <input type="text" placeholder="email" onChange={handleEmailFieldTyping} />
+          <span>Username:&nbsp;</span>
+          <input type="text" placeholder="username" onChange={handleEmailFieldTyping} />
 
           <span>Password:&nbsp;</span>
           <input type="password" placeholder="password" onChange={handlePasswordFieldTyping} />
         </div>
 
         <div id="login-buttons">
-          <button className="ckh-btn" onClick={() => authenticateUser('/api/auth/login', 'email or password incorrect')}>Login</button>
-          <button className="ckh-btn" onClick={() => authenticateUser('/api/auth/register', 'email taken')}>Register</button>
+          <button className="ckh-btn" onClick={() => authenticateUser('/api/auth/login', 'username or password incorrect')}>Login</button>
+          <button className="ckh-btn" onClick={() => authenticateUser('/api/auth/register', 'username taken')}>Register</button>
         </div>
       </div>
     </main>
