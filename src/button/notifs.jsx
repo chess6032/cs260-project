@@ -27,6 +27,7 @@ export function NotifTable() {
   
   React.useEffect(() => {
     console.log('rendered');
+    // TODO: replace interval w/ receiving WS message
     const interval = setInterval(() => {
       addNotif(randomName());
     }, 1000);

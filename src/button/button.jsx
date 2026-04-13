@@ -4,6 +4,8 @@ import './button.css';
 import { useNavigate, Navigate } from 'react-router-dom';
 import { NotifTable } from './notifs';
 
+import { PressNotifier } from './pressNotifier';
+
 export function Button( { localUser } ) {
   const navigate = useNavigate();
   if (!localUser) {
@@ -13,6 +15,7 @@ export function Button( { localUser } ) {
 
   async function userPressesButton() {
     let response = await fetch('/api/banme', {method: 'PUT'} );
+    // TODO: send WS message
     navigate("/");
   }
 
