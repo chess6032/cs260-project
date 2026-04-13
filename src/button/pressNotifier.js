@@ -1,6 +1,6 @@
 class PressMessage {
-  constructor(name) {
-    this.name = name;
+  constructor(user) {
+    this.user = user;
   }
 }
 
@@ -16,7 +16,7 @@ class PressEventNotifier {
     this.socket.onmessage = async (msg) => {
       try {
         const event = JSON.parse(await msg.data.text());
-        this.receiveEvent(event);
+        this.receivePress(event);
       } catch {} // TODO: why don't we do nothin'?
     };
   }
