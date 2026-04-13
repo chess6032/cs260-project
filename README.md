@@ -125,12 +125,12 @@ For this deliverable I did the following. I checked the box `[x]` and added a de
   - In addition to user's username and email, each document in the auths collection includes a *timestamp* field. In the future, I can think about automatically deleting auths with old timestamps.
 - Endpoints were rewritten to insert/query/update/delete items from the MongoDB. 
 
-<!-- ## 🚀 WebSocket deliverable
+## 🚀 WebSocket deliverable
 
 For this deliverable I did the following. I checked the box `[x]` and added a description for things I completed.
 
-- [ ] **Backend listens for WebSocket connection** - I did not complete this part of the deliverable.
-- [ ] **Frontend makes WebSocket connection** - I did not complete this part of the deliverable.
-- [ ] **Data sent over WebSocket connection** - I did not complete this part of the deliverable.
-- [ ] **WebSocket data displayed** - I did not complete this part of the deliverable.
-- [ ] **Application is fully functional** - I did not complete this part of the deliverable. -->
+- [X] **Backend listens for WebSocket connection**: `peerProxy` function (defined in `peerProxy.js`) is used to add WebSocket functionality to ExpressJS backend.
+- [X] **Frontend makes WebSocket connection**: the `PressNotifier` class (defined in `pressNotifier.js`, used in `button.jsx` and `notifs.jsx`) contains logic for broadcasting & receiving WebSocket messages.
+- [X] **Data sent over WebSocket connection**: When a user presses the button, it broadcasts their username to all other users.
+- [X] **WebSocket data displayed**: Incoming notifications display on button page.
+- [X] **Application is fully functional**: Login/registering, logging out, webpage navigation, button interactivity, service endpoints, database queries/updates, websocket messages, all implemented and functioning.
