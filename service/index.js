@@ -9,6 +9,8 @@ const uuid = require('uuid');
 const cookieParser = require('cookie-parser');
 let apiRouter = express.Router();
 
+const { peerProxy } = require('./peerProxy.js');
+
 const { 
   addUser:dbAddUser, 
   getUserByEmail:dbGetUser,
@@ -189,9 +191,15 @@ app.use((_req, res) => {
 });
 
 const port = process.env.VITE_PROXY_PORT || 4000;
-app.listen(port, function () {
+const httpService = app.listen(port, function () {
   console.log(`Listening on port ${port}`);
 });
+
+// add WebSocket to Express app
+peerProxy(httpService);
+
+
+
 
 // WARN: BELOW IS A LIST OF SWEAR WORDS THAT 
 // filter() USES TO IDENTIFY INAPPROPRIATE KANYE QUOTES.
