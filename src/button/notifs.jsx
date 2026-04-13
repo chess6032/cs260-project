@@ -2,6 +2,8 @@ import React from 'react';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import './notifs.css';
 
+import { PressNotifier } from './pressNotifier';
+
 export function NotifTable() {
   const MAX_NOTIF_LIST_LEN = 5
 
@@ -21,18 +23,10 @@ export function NotifTable() {
     
   };
 
-  // placeholder for websocket
-  const randomName = () =>
-    ['JohnDoe42', 'JoeMama000', 'SantaClause25', 'xXgamerXx', 'skibidiGyatt6767'].at(Math.floor(Math.random() * 5)); 
-  
   React.useEffect(() => {
-    console.log('rendered');
-    // TODO: replace interval w/ receiving WS message
-    const interval = setInterval(() => {
-      addNotif(randomName());
-    }, 1000);
-
-    return () => clearInterval(interval); // cleanup
+    const handler = (event) => addNotif(event.user);
+    PressNotifier.addHandler(handler);
+    return () => PressNotifier.removeHandler(handler);
   }, []); 
 
   return (

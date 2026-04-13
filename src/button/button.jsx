@@ -15,7 +15,7 @@ export function Button( { localUser } ) {
 
   async function userPressesButton() {
     let response = await fetch('/api/banme', {method: 'PUT'} );
-    // TODO: send WS message
+    PressNotifier.broadcastPress(localUser); // send WS message
     navigate("/");
   }
 
