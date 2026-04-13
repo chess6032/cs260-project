@@ -10,7 +10,7 @@ export function NotifTable() {
   // TODO: find a better way to implement the notification list 
   // than a table whose rows are filled by an always-ten-element array.
   // TODO: modify CSS to work better w/ different list lengths.
-  const [notifList, setNotifList] = React.useState(Array(MAX_NOTIF_LIST_LEN-1).fill(null).concat("WEBSOCKET PLACEHOLDER"));
+  const [notifList, setNotifList] = React.useState(Array(MAX_NOTIF_LIST_LEN-1).fill(null));
 
   const addNotif = (user="another user") => {
     setNotifList((prevNotifs) => {
